@@ -1,0 +1,171 @@
+HloModule cluster_2__XlaCompiledKernel_true__XlaHasReferenceVars_false__XlaNumConstantArgs_0__XlaNumResourceArgs_6_.174, alias_passthrough_params=true
+
+max_float_.106 {
+  x.107 = f32[] parameter(0)
+  y.108 = f32[] parameter(1)
+  ROOT maximum.109 = f32[] maximum(x.107, y.108)
+}
+
+fused_computation {
+  param_2.13 = f32[] parameter(2)
+  param_3.8 = f32[] parameter(3)
+  compare.0 = pred[] compare(param_2.13, param_3.8), direction=EQ
+  param_0.11 = s32[] parameter(0)
+  param_1.18 = s32[] parameter(1)
+  minimum.0 = s32[] minimum(param_0.11, param_1.18)
+  compare.6 = pred[] compare(param_2.13, param_3.8), direction=GE
+  select.1 = s32[] select(compare.6, param_0.11, param_1.18)
+  select.0 = s32[] select(compare.0, minimum.0, select.1)
+  select.5.clone.1 = f32[] select(compare.6, param_2.13, param_3.8)
+  ROOT tuple = (s32[], f32[]) tuple(select.0, select.5.clone.1)
+}
+
+minmax_func.35 {
+  lhs_index.37 = s32[] parameter(1)
+  rhs_index.39 = s32[] parameter(3)
+  lhs_value.36 = f32[] parameter(0)
+  rhs_value.38 = f32[] parameter(2)
+  fusion = (s32[], f32[]) fusion(lhs_index.37, rhs_index.39, lhs_value.36, rhs_value.38), kind=kLoop, calls=fused_computation
+  get-tuple-element.1 = f32[] get-tuple-element(fusion), index=1
+  get-tuple-element = s32[] get-tuple-element(fusion), index=0
+  ROOT tuple.46 = (f32[], s32[]) tuple(get-tuple-element.1, get-tuple-element)
+}
+
+sparse_categorical_crossentropy_weighted_loss_Sum-reduction.147 {
+  x.148 = f32[] parameter(0)
+  y.149 = f32[] parameter(1)
+  ROOT add.150 = f32[] add(x.148, y.149)
+}
+
+input_fused_computation_reduce {
+  param_1.27 = u8[32]{0} parameter(1)
+  convert.0 = s64[32]{0} convert(param_1.27), metadata={op_type="Cast" op_name="sparse_categorical_crossentropy/ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_int64_Cast"}
+  broadcast.8 = s64[32,10]{1,0} broadcast(convert.0), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  iota.0 = s64[32,10]{1,0} iota(), iota_dimension=1, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.4 = pred[32,10]{1,0} compare(broadcast.8, iota.0), direction=EQ, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_7 = f32[] constant(1), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.7 = f32[32,10]{1,0} broadcast(constant_7), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_8 = f32[] constant(0), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  broadcast.6 = f32[32,10]{1,0} broadcast(constant_8), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  select.4 = f32[32,10]{1,0} select(compare.4, broadcast.7, broadcast.6), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_6 = s64[] constant(0), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.5 = s64[32]{0} broadcast(constant_6), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.3 = pred[32]{0} compare(broadcast.5, convert.0), direction=LE, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_5 = s64[] constant(10), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.4 = s64[32]{0} broadcast(constant_5), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.2 = pred[32]{0} compare(convert.0, broadcast.4), direction=LT, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  and.0 = pred[32]{0} and(compare.3, compare.2), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.3 = f32[32]{0} broadcast(constant_8), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_4 = f32[] constant(nan), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.2 = f32[32]{0} broadcast(constant_4), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  select.3 = f32[32]{0} select(and.0, broadcast.3, broadcast.2), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.1 = f32[32,10]{1,0} broadcast(select.3), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  add.0 = f32[32,10]{1,0} add(select.4, broadcast.1), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  negate.0 = f32[32,10]{1,0} negate(add.0), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.1 = pred[32,10]{1,0} compare(add.0, broadcast.6), direction=EQ, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  param_2.16 = f32[32,10]{1,0} parameter(2)
+  param_3.10 = f32[32]{0} parameter(3)
+  broadcast.14 = f32[32,10]{1,0} broadcast(param_3.10), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  subtract.5 = f32[32,10]{1,0} subtract(param_2.16, broadcast.14), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  param_0.20 = f32[32]{0} parameter(0)
+  broadcast.0 = f32[32,10]{1,0} broadcast(param_0.20), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  subtract.0 = f32[32,10]{1,0} subtract(subtract.5, broadcast.0), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  select.2 = f32[32,10]{1,0} select(compare.1, broadcast.6, subtract.0), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  multiply.3 = f32[32,10]{1,0} multiply(negate.0, select.2), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  bitcast.2 = f32[320]{0} bitcast(multiply.3)
+  ROOT reduce.3 = f32[] reduce(bitcast.2, constant_8), dimensions={0}, to_apply=sparse_categorical_crossentropy_weighted_loss_Sum-reduction.147, metadata={op_type="Sum" op_name="sparse_categorical_crossentropy/weighted_loss/Sum"}
+}
+
+add_float_.116 {
+  x.117 = f32[] parameter(0)
+  y.118 = f32[] parameter(1)
+  ROOT add.119 = f32[] add(x.117, y.118)
+}
+
+fused_computation.1 {
+  param_0.18 = f32[32,10]{1,0} parameter(0)
+  param_1.25 = f32[32]{0} parameter(1)
+  broadcast.12 = f32[32,10]{1,0} broadcast(param_1.25), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  subtract.3 = f32[32,10]{1,0} subtract(param_0.18, broadcast.12), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  exponential.0 = f32[32,10]{1,0} exponential(subtract.3), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_9 = f32[] constant(0), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  reduce.4 = f32[32]{0} reduce(exponential.0, constant_9), dimensions={1}, to_apply=add_float_.116, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  ROOT log.0 = f32[32]{0} log(reduce.4), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+}
+
+Sum_2-reduction.66 {
+  x.67 = f32[] parameter(0)
+  y.68 = f32[] parameter(1)
+  ROOT add.69 = f32[] add(x.67, y.68)
+}
+
+input_fused_computation_reduce.1 {
+  param_1.22 = u8[32]{0} parameter(1)
+  convert.4 = f32[32]{0} convert(param_1.22), metadata={op_type="Cast" op_name="ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_float_Cast_1"}
+  param_0.16 = s32[32]{0} parameter(0)
+  convert.3 = s64[32]{0} convert(param_0.16), metadata={op_type="ArgMax" op_name="ArgMax"}
+  convert.2 = f32[32]{0} convert(convert.3), metadata={op_type="Cast" op_name="Cast_2"}
+  compare.5 = pred[32]{0} compare(convert.4, convert.2), direction=EQ, metadata={op_type="Equal" op_name="Equal"}
+  convert.1 = f32[32]{0} convert(compare.5), metadata={op_type="Cast" op_name="ArithmeticOptimizer/ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_float_ReorderCastLikeAndValuePreserving_float_Cast_3"}
+  constant_10 = f32[] constant(0), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  ROOT reduce.5 = f32[] reduce(convert.1, constant_10), dimensions={0}, to_apply=Sum_2-reduction.66, metadata={op_type="Sum" op_name="Sum_2"}
+}
+
+fused_computation.3 {
+  param_0.10 = f32[32,128]{1,0} parameter(0)
+  constant_12 = f32[] constant(0), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  broadcast.10 = f32[32,128]{1,0} broadcast(constant_12), dimensions={}, metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  ROOT maximum.0 = f32[32,128]{1,0} maximum(param_0.10, broadcast.10), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+}
+
+horizontally_fused_computation {
+  param_0_0 = f32[] parameter(0)
+  param_0_1 = f32[] parameter(1)
+  add.3 = f32[] add(param_0_0, param_0_1), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp_2"}
+  reshape.1 = f32[1]{0} reshape(add.3), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp_2"}
+  param_1_0 = f32[] parameter(2)
+  param_1_1 = f32[] parameter(3)
+  add.4 = f32[] add(param_1_0, param_1_1), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp"}
+  reshape.2 = f32[1]{0} reshape(add.4), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp"}
+  concatenate = f32[2]{0} concatenate(reshape.1, reshape.2), dimensions={0}
+  slice = f32[1]{0} slice(concatenate), slice={[0:1]}
+  slice.1 = f32[1]{0} slice(concatenate), slice={[1:2]}
+  ROOT tuple.1 = (f32[1]{0}, f32[1]{0}) tuple(slice, slice.1)
+}
+
+ENTRY cluster_2__XlaCompiledKernel_true__XlaHasReferenceVars_false__XlaNumConstantArgs_0__XlaNumResourceArgs_6_.174 {
+  constant_165 = s32[] constant(32)
+  copy = s32[] copy(constant_165)
+  constant_162 = f32[] constant(32), metadata={op_type="Mul" op_name="Mul"}
+  copy.1 = f32[] copy(constant_162)
+  arg6.7 = f32[] parameter(6), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  arg0.1 = f32[32,28,28]{2,1,0} parameter(0), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  bitcast.1 = f32[32,784]{1,0} bitcast(arg0.1), metadata={op_type="Reshape" op_name="sequential/flatten/Reshape"}
+  arg3.4 = f32[784,128]{1,0} parameter(3), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  arg2.3 = f32[128]{0} parameter(2), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  broadcast.15 = f32[32,128]{1,0} broadcast(arg2.3), dimensions={1}, metadata={op_type="BiasAdd" op_name="sequential/dense/BiasAdd"}
+  cublas-gemm.3 = f32[32,128]{1,0} custom-call(bitcast.1, arg3.4, broadcast.15), custom_call_target="__cublas$gemm", metadata={op_type="BiasAdd" op_name="sequential/dense/BiasAdd"}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":1,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"25088\",\"rhs_stride\":\"100352\",\"selected_algorithm\":\"-1\"}"
+  fusion.3 = f32[32,128]{1,0} fusion(cublas-gemm.3), kind=kLoop, calls=fused_computation.3, metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  arg5.6 = f32[128,10]{1,0} parameter(5), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  arg4.5 = f32[10]{0} parameter(4), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  broadcast.22 = f32[32,10]{1,0} broadcast(arg4.5), dimensions={1}, metadata={op_type="BiasAdd" op_name="sequential/dense_1/BiasAdd"}
+  cublas-gemm.7 = f32[32,10]{1,0} custom-call(fusion.3, arg5.6, broadcast.22), custom_call_target="__cublas$gemm", metadata={op_type="BiasAdd" op_name="sequential/dense_1/BiasAdd"}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":1,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"4096\",\"rhs_stride\":\"1280\",\"selected_algorithm\":\"-1\"}"
+  iota.34 = s32[32,10]{1,0} iota(), iota_dimension=1, metadata={op_type="ArgMax" op_name="ArgMax"}
+  constant_32 = f32[] constant(-inf), metadata={op_type="ArgMax" op_name="ArgMax"}
+  constant_33 = s32[] constant(0), metadata={op_type="ArgMax" op_name="ArgMax"}
+  reduce.47 = (f32[32]{0}, s32[32]{0}) reduce(cublas-gemm.7, iota.34, constant_32, constant_33), dimensions={1}, to_apply=minmax_func.35, metadata={op_type="ArgMax" op_name="ArgMax"}
+  get-tuple-element.48 = s32[32]{0} get-tuple-element(reduce.47), index=1, metadata={op_type="ArgMax" op_name="ArgMax"}
+  arg1.2 = u8[32]{0} parameter(1), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  input_fusion_reduce.1 = f32[] fusion(get-tuple-element.48, arg1.2), kind=kInput, calls=input_fused_computation_reduce.1, metadata={op_type="Sum" op_name="Sum_2"}
+  arg7.8 = f32[] parameter(7), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  reduce.110 = f32[32]{0} reduce(cublas-gemm.7, constant_32), dimensions={1}, to_apply=max_float_.106, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  fusion.1 = f32[32]{0} fusion(cublas-gemm.7, reduce.110), kind=kLoop, calls=fused_computation.1, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  input_fusion_reduce = f32[] fusion(fusion.1, arg1.2, cublas-gemm.7, reduce.110), kind=kInput, calls=input_fused_computation_reduce, metadata={op_type="Sum" op_name="sparse_categorical_crossentropy/weighted_loss/Sum"}
+  fusion.7 = (f32[1]{0}, f32[1]{0}) fusion(arg6.7, input_fusion_reduce.1, arg7.8, input_fusion_reduce), kind=kInput, calls=horizontally_fused_computation
+  get-tuple-element.2 = f32[1]{0} get-tuple-element(fusion.7), index=0
+  bitcast.3 = f32[] bitcast(get-tuple-element.2), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp_2"}
+  get-tuple-element.3 = f32[1]{0} get-tuple-element(fusion.7), index=1
+  bitcast.4 = f32[] bitcast(get-tuple-element.3), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp"}
+  ROOT tuple.2 = (s32[], f32[], f32[], f32[]) tuple(copy, copy.1, bitcast.3, bitcast.4)
+}
+

@@ -1,0 +1,429 @@
+HloModule cluster_0__XlaCompiledKernel_true__XlaHasReferenceVars_false__XlaNumConstantArgs_0__XlaNumResourceArgs_18_.340, alias_passthrough_params=true
+
+max_float_.110 {
+  x.111 = f32[] parameter(0)
+  y.112 = f32[] parameter(1)
+  ROOT maximum.113 = f32[] maximum(x.111, y.112)
+}
+
+region_0.152 {
+  Arg_0.153 = f32[] parameter(0)
+  Arg_1.154 = f32[] parameter(1)
+  ROOT add.155 = f32[] add(Arg_0.153, Arg_1.154), metadata={op_type="BiasAddGrad" op_name="gradient_tape/sequential/dense_1/BiasAdd/BiasAddGrad"}
+}
+
+fused_computation {
+  param_2.75 = f32[] parameter(2)
+  param_3.42 = f32[] parameter(3)
+  compare.0 = pred[] compare(param_2.75, param_3.42), direction=EQ
+  param_0.29 = s32[] parameter(0)
+  param_1.69 = s32[] parameter(1)
+  minimum.0 = s32[] minimum(param_0.29, param_1.69)
+  compare.8 = pred[] compare(param_2.75, param_3.42), direction=GE
+  select.3 = s32[] select(compare.8, param_0.29, param_1.69)
+  select.2 = s32[] select(compare.0, minimum.0, select.3)
+  select.10.clone.1 = f32[] select(compare.8, param_2.75, param_3.42)
+  ROOT tuple = (s32[], f32[]) tuple(select.2, select.10.clone.1)
+}
+
+minmax_func.63 {
+  lhs_index.65 = s32[] parameter(1)
+  rhs_index.67 = s32[] parameter(3)
+  lhs_value.64 = f32[] parameter(0)
+  rhs_value.66 = f32[] parameter(2)
+  fusion = (s32[], f32[]) fusion(lhs_index.65, rhs_index.67, lhs_value.64, rhs_value.66), kind=kLoop, calls=fused_computation
+  get-tuple-element.1 = f32[] get-tuple-element(fusion), index=1
+  get-tuple-element = s32[] get-tuple-element(fusion), index=0
+  ROOT tuple.74 = (f32[], s32[]) tuple(get-tuple-element.1, get-tuple-element)
+}
+
+Sum_2-reduction.281 {
+  x.282 = f32[] parameter(0)
+  y.283 = f32[] parameter(1)
+  ROOT add.284 = f32[] add(x.282, y.283)
+}
+
+input_fused_computation_reduce {
+  param_1.72 = u8[32]{0} parameter(1)
+  convert.3 = f32[32]{0} convert(param_1.72), metadata={op_type="Cast" op_name="ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_float_Cast_1"}
+  param_0.32 = s32[32]{0} parameter(0)
+  convert.2 = s64[32]{0} convert(param_0.32), metadata={op_type="ArgMax" op_name="ArgMax"}
+  convert.1 = f32[32]{0} convert(convert.2), metadata={op_type="Cast" op_name="Cast_2"}
+  compare.1 = pred[32]{0} compare(convert.3, convert.1), direction=EQ, metadata={op_type="Equal" op_name="Equal"}
+  convert.0 = f32[32]{0} convert(compare.1), metadata={op_type="Cast" op_name="ArithmeticOptimizer/ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_float_ReorderCastLikeAndValuePreserving_float_Cast_3"}
+  constant_13 = f32[] constant(0), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  ROOT reduce.3 = f32[] reduce(convert.0, constant_13), dimensions={0}, to_apply=Sum_2-reduction.281, metadata={op_type="Sum" op_name="Sum_2"}
+}
+
+sparse_categorical_crossentropy_weighted_loss_Sum-reduction.291 {
+  x.292 = f32[] parameter(0)
+  y.293 = f32[] parameter(1)
+  ROOT add.294 = f32[] add(x.292, y.293)
+}
+
+input_fused_computation_reduce.1 {
+  param_1.101 = u8[32]{0} parameter(1)
+  convert.7 = s64[32]{0} convert(param_1.101), metadata={op_type="Cast" op_name="sparse_categorical_crossentropy/ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_int64_Cast"}
+  broadcast.59 = s64[32,10]{1,0} broadcast(convert.7), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  iota.2 = s64[32,10]{1,0} iota(), iota_dimension=1, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.15 = pred[32,10]{1,0} compare(broadcast.59, iota.2), direction=EQ, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_52 = f32[] constant(1), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.58 = f32[32,10]{1,0} broadcast(constant_52), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_14 = f32[] constant(0), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  broadcast.56 = f32[32,10]{1,0} broadcast(constant_14), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  select.14 = f32[32,10]{1,0} select(compare.15, broadcast.58, broadcast.56), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_48 = s64[] constant(0), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.55 = s64[32]{0} broadcast(constant_48), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.14 = pred[32]{0} compare(broadcast.55, convert.7), direction=LE, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_47 = s64[] constant(10), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.54 = s64[32]{0} broadcast(constant_47), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.13 = pred[32]{0} compare(convert.7, broadcast.54), direction=LT, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  and.2 = pred[32]{0} and(compare.14, compare.13), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.53 = f32[32]{0} broadcast(constant_14), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_44 = f32[] constant(nan), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.51 = f32[32]{0} broadcast(constant_44), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  select.13 = f32[32]{0} select(and.2, broadcast.53, broadcast.51), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.50 = f32[32,10]{1,0} broadcast(select.13), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  add.15 = f32[32,10]{1,0} add(select.14, broadcast.50), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  negate.0 = f32[32,10]{1,0} negate(add.15), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.2 = pred[32,10]{1,0} compare(add.15, broadcast.56), direction=EQ, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  param_2.113 = f32[32,10]{1,0} parameter(2)
+  param_3.74 = f32[32]{0} parameter(3)
+  broadcast.79 = f32[32,10]{1,0} broadcast(param_3.74), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  subtract.28 = f32[32,10]{1,0} subtract(param_2.113, broadcast.79), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  param_0.48 = f32[32]{0} parameter(0)
+  broadcast.5 = f32[32,10]{1,0} broadcast(param_0.48), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  subtract.0 = f32[32,10]{1,0} subtract(subtract.28, broadcast.5), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  select.4 = f32[32,10]{1,0} select(compare.2, broadcast.56, subtract.0), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  multiply.3 = f32[32,10]{1,0} multiply(negate.0, select.4), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  bitcast.2 = f32[320]{0} bitcast(multiply.3)
+  ROOT reduce.4 = f32[] reduce(bitcast.2, constant_14), dimensions={0}, to_apply=sparse_categorical_crossentropy_weighted_loss_Sum-reduction.291, metadata={op_type="Sum" op_name="sparse_categorical_crossentropy/weighted_loss/Sum"}
+}
+
+fused_computation.1 {
+  param_0.6 = f32[128,10]{1,0} parameter(0)
+  param_2.116 = f32[128,10]{1,0} parameter(2)
+  param_4.45 = f32[128,10]{1,0} parameter(4)
+  subtract.3.clone.1 = f32[128,10]{1,0} subtract(param_4.45, param_2.116), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  constant_16_clone_1 = f32[] constant(1), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  param_3.78 = f32[] parameter(3)
+  subtract.17.clone.1 = f32[] subtract(constant_16_clone_1, param_3.78), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  broadcast.9.clone.1 = f32[128,10]{1,0} broadcast(subtract.17.clone.1), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  multiply.7.clone.1 = f32[128,10]{1,0} multiply(subtract.3.clone.1, broadcast.9.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  add.2.clone.1 = f32[128,10]{1,0} add(param_2.116, multiply.7.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  param_1.104 = f32[] parameter(1)
+  broadcast.7 = f32[128,10]{1,0} broadcast(param_1.104), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  multiply.4 = f32[128,10]{1,0} multiply(add.2.clone.1, broadcast.7), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  param_5.24 = f32[128,10]{1,0} parameter(5)
+  multiply.6.clone.1 = f32[128,10]{1,0} multiply(param_4.45, param_4.45), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  subtract.2.clone.1 = f32[128,10]{1,0} subtract(multiply.6.clone.1, param_5.24), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  param_6.9 = f32[] parameter(6)
+  subtract.18.clone.1 = f32[] subtract(constant_16_clone_1, param_6.9), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  broadcast.8.clone.1 = f32[128,10]{1,0} broadcast(subtract.18.clone.1), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  multiply.5.clone.1 = f32[128,10]{1,0} multiply(subtract.2.clone.1, broadcast.8.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  add.1.clone.1 = f32[128,10]{1,0} add(param_5.24, multiply.5.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  sqrt.0 = f32[128,10]{1,0} sqrt(add.1.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  constant_15 = f32[] constant(1e-07), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  broadcast.6 = f32[128,10]{1,0} broadcast(constant_15), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  add.0 = f32[128,10]{1,0} add(sqrt.0, broadcast.6), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  divide.0 = f32[128,10]{1,0} divide(multiply.4, add.0), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  subtract.1 = f32[128,10]{1,0} subtract(param_0.6, divide.0), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  ROOT tuple.2 = (f32[128,10]{1,0}, f32[128,10]{1,0}, f32[128,10]{1,0}) tuple(subtract.1, add.2.clone.1, add.1.clone.1)
+}
+
+fused_computation.4 {
+  param_0.9 = f32[10]{0} parameter(0)
+  param_2.118 = f32[10]{0} parameter(2)
+  param_4.49 = f32[10]{0} parameter(4)
+  subtract.6.clone.1 = f32[10]{0} subtract(param_4.49, param_2.118), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  constant_19_clone_1 = f32[] constant(1), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  param_3.80 = f32[] parameter(3)
+  subtract.19.clone.1 = f32[] subtract(constant_19_clone_1, param_3.80), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  broadcast.13.clone.1 = f32[10]{0} broadcast(subtract.19.clone.1), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  multiply.11.clone.1 = f32[10]{0} multiply(subtract.6.clone.1, broadcast.13.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  add.5.clone.1 = f32[10]{0} add(param_2.118, multiply.11.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  param_1.105 = f32[] parameter(1)
+  broadcast.11 = f32[10]{0} broadcast(param_1.105), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  multiply.8 = f32[10]{0} multiply(add.5.clone.1, broadcast.11), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  param_5.30 = f32[10]{0} parameter(5)
+  multiply.10.clone.1 = f32[10]{0} multiply(param_4.49, param_4.49), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  subtract.5.clone.1 = f32[10]{0} subtract(multiply.10.clone.1, param_5.30), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  param_6.13 = f32[] parameter(6)
+  subtract.20.clone.1 = f32[] subtract(constant_19_clone_1, param_6.13), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  broadcast.12.clone.1 = f32[10]{0} broadcast(subtract.20.clone.1), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  multiply.9.clone.1 = f32[10]{0} multiply(subtract.5.clone.1, broadcast.12.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  add.4.clone.1 = f32[10]{0} add(param_5.30, multiply.9.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  sqrt.1 = f32[10]{0} sqrt(add.4.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  constant_18 = f32[] constant(1e-07), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  broadcast.10 = f32[10]{0} broadcast(constant_18), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  add.3 = f32[10]{0} add(sqrt.1, broadcast.10), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  divide.1 = f32[10]{0} divide(multiply.8, add.3), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  subtract.4 = f32[10]{0} subtract(param_0.9, divide.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  ROOT tuple.4 = (f32[10]{0}, f32[10]{0}, f32[10]{0}) tuple(subtract.4, add.5.clone.1, add.4.clone.1)
+}
+
+fused_computation.7 {
+  param_0.12 = f32[784,128]{1,0} parameter(0)
+  param_2.120 = f32[784,128]{1,0} parameter(2)
+  param_4.53 = f32[784,128]{1,0} parameter(4)
+  subtract.9.clone.1 = f32[784,128]{1,0} subtract(param_4.53, param_2.120), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  constant_22_clone_1 = f32[] constant(1), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  param_3.82 = f32[] parameter(3)
+  subtract.21.clone.1 = f32[] subtract(constant_22_clone_1, param_3.82), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  broadcast.17.clone.1 = f32[784,128]{1,0} broadcast(subtract.21.clone.1), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  multiply.15.clone.1 = f32[784,128]{1,0} multiply(subtract.9.clone.1, broadcast.17.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  add.8.clone.1 = f32[784,128]{1,0} add(param_2.120, multiply.15.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  param_1.106 = f32[] parameter(1)
+  broadcast.15 = f32[784,128]{1,0} broadcast(param_1.106), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  multiply.12 = f32[784,128]{1,0} multiply(add.8.clone.1, broadcast.15), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  param_5.36 = f32[784,128]{1,0} parameter(5)
+  multiply.14.clone.1 = f32[784,128]{1,0} multiply(param_4.53, param_4.53), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  subtract.8.clone.1 = f32[784,128]{1,0} subtract(multiply.14.clone.1, param_5.36), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  param_6.17 = f32[] parameter(6)
+  subtract.22.clone.1 = f32[] subtract(constant_22_clone_1, param_6.17), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  broadcast.16.clone.1 = f32[784,128]{1,0} broadcast(subtract.22.clone.1), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  multiply.13.clone.1 = f32[784,128]{1,0} multiply(subtract.8.clone.1, broadcast.16.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  add.7.clone.1 = f32[784,128]{1,0} add(param_5.36, multiply.13.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  sqrt.2 = f32[784,128]{1,0} sqrt(add.7.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  constant_21 = f32[] constant(1e-07), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  broadcast.14 = f32[784,128]{1,0} broadcast(constant_21), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  add.6 = f32[784,128]{1,0} add(sqrt.2, broadcast.14), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  divide.2 = f32[784,128]{1,0} divide(multiply.12, add.6), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  subtract.7 = f32[784,128]{1,0} subtract(param_0.12, divide.2), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  ROOT tuple.6 = (f32[784,128]{1,0}, f32[784,128]{1,0}, f32[784,128]{1,0}) tuple(subtract.7, add.8.clone.1, add.7.clone.1)
+}
+
+fused_computation.10 {
+  param_0.15 = f32[128]{0} parameter(0)
+  param_2.122 = f32[128]{0} parameter(2)
+  param_4.57 = f32[128]{0} parameter(4)
+  subtract.14.clone.1 = f32[128]{0} subtract(param_4.57, param_2.122), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  constant_28_clone_1 = f32[] constant(1), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  param_3.84 = f32[] parameter(3)
+  subtract.23.clone.1 = f32[] subtract(constant_28_clone_1, param_3.84), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  broadcast.21.clone.1 = f32[128]{0} broadcast(subtract.23.clone.1), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  multiply.20.clone.1 = f32[128]{0} multiply(subtract.14.clone.1, broadcast.21.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  add.12.clone.1 = f32[128]{0} add(param_2.122, multiply.20.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  param_1.107 = f32[] parameter(1)
+  broadcast.19 = f32[128]{0} broadcast(param_1.107), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  multiply.16 = f32[128]{0} multiply(add.12.clone.1, broadcast.19), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  param_5.42 = f32[128]{0} parameter(5)
+  multiply.18.clone.1 = f32[128]{0} multiply(param_4.57, param_4.57), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  subtract.11.clone.1 = f32[128]{0} subtract(multiply.18.clone.1, param_5.42), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  param_6.21 = f32[] parameter(6)
+  subtract.24.clone.1 = f32[] subtract(constant_28_clone_1, param_6.21), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  broadcast.20.clone.1 = f32[128]{0} broadcast(subtract.24.clone.1), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  multiply.17.clone.1 = f32[128]{0} multiply(subtract.11.clone.1, broadcast.20.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  add.10.clone.1 = f32[128]{0} add(param_5.42, multiply.17.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  sqrt.3 = f32[128]{0} sqrt(add.10.clone.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  constant_24 = f32[] constant(1e-07), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  broadcast.18 = f32[128]{0} broadcast(constant_24), dimensions={}, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  add.9 = f32[128]{0} add(sqrt.3, broadcast.18), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  divide.3 = f32[128]{0} divide(multiply.16, add.9), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  subtract.10 = f32[128]{0} subtract(param_0.15, divide.3), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  ROOT tuple.8 = (f32[128]{0}, f32[128]{0}, f32[128]{0}) tuple(subtract.10, add.12.clone.1, add.10.clone.1)
+}
+
+fused_computation.12 {
+  param_1.85 = f32[] parameter(1)
+  constant_27 = f32[] constant(1), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  param_2.95 = f32[] parameter(2)
+  param_3.54 = s64[] parameter(3)
+  constant_6 = s64[] constant(1), metadata={op_type="AddV2" op_name="Adam/add"}
+  add.11 = s64[] add(param_3.54, constant_6), metadata={op_type="AddV2" op_name="Adam/add"}
+  convert.4 = f32[] convert(add.11), metadata={op_type="Cast" op_name="Adam/Cast_1"}
+  power.1 = f32[] power(param_2.95, convert.4), metadata={op_type="Pow" op_name="Adam/Pow_1"}
+  subtract.13 = f32[] subtract(constant_27, power.1), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  sqrt.4 = f32[] sqrt(subtract.13), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  multiply.19 = f32[] multiply(param_1.85, sqrt.4), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  param_0.34 = f32[] parameter(0)
+  power.0 = f32[] power(param_0.34, convert.4), metadata={op_type="Pow" op_name="Adam/Pow"}
+  subtract.12 = f32[] subtract(constant_27, power.0), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  ROOT divide.4 = f32[] divide(multiply.19, subtract.12), metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+}
+
+fused_computation.15 {
+  constant_7 = f32[] constant(0.03125), metadata={op_type="Const" op_name="gradient_tape/sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/ExpandDims"}
+  broadcast.23 = f32[32,10]{1,0} broadcast(constant_7), dimensions={}, metadata={op_type="Mul" op_name="gradient_tape/sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/mul"}
+  param_2.114 = f32[32,10]{1,0} parameter(2)
+  param_3.76 = f32[32]{0} parameter(3)
+  broadcast.81 = f32[32,10]{1,0} broadcast(param_3.76), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  subtract.30 = f32[32,10]{1,0} subtract(param_2.114, broadcast.81), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  exponential.0 = f32[32,10]{1,0} exponential(subtract.30), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  param_0.44 = f32[32]{0} parameter(0)
+  broadcast.22 = f32[32,10]{1,0} broadcast(param_0.44), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  divide.5 = f32[32,10]{1,0} divide(exponential.0, broadcast.22), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  param_1.103 = u8[32]{0} parameter(1)
+  convert.9 = s64[32]{0} convert(param_1.103), metadata={op_type="Cast" op_name="sparse_categorical_crossentropy/ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_int64_Cast"}
+  broadcast.75 = s64[32,10]{1,0} broadcast(convert.9), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  iota.4 = s64[32,10]{1,0} iota(), iota_dimension=1, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.21 = pred[32,10]{1,0} compare(broadcast.75, iota.4), direction=EQ, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_66 = f32[] constant(1), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.74 = f32[32,10]{1,0} broadcast(constant_66), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_65 = f32[] constant(0), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  broadcast.73 = f32[32,10]{1,0} broadcast(constant_65), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  select.18 = f32[32,10]{1,0} select(compare.21, broadcast.74, broadcast.73), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_64 = s64[] constant(0), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.72 = s64[32]{0} broadcast(constant_64), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.20 = pred[32]{0} compare(broadcast.72, convert.9), direction=LE, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_63 = s64[] constant(10), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.71 = s64[32]{0} broadcast(constant_63), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.19 = pred[32]{0} compare(convert.9, broadcast.71), direction=LT, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  and.4 = pred[32]{0} and(compare.20, compare.19), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.70 = f32[32]{0} broadcast(constant_65), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_62 = f32[] constant(nan), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.69 = f32[32]{0} broadcast(constant_62), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  select.17 = f32[32]{0} select(and.4, broadcast.70, broadcast.69), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.68 = f32[32,10]{1,0} broadcast(select.17), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  add.17 = f32[32,10]{1,0} add(select.18, broadcast.68), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  subtract.15 = f32[32,10]{1,0} subtract(divide.5, add.17), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  ROOT multiply.21 = f32[32,10]{1,0} multiply(broadcast.23, subtract.15), metadata={op_type="Mul" op_name="gradient_tape/sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/mul"}
+}
+
+fused_computation.18 {
+  param_0.56 = f32[32,128]{1,0} parameter(0)
+  constant_33 = f32[] constant(0), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  broadcast.37 = f32[32,128]{1,0} broadcast(constant_33), dimensions={}, metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  maximum.1 = f32[32,128]{1,0} maximum(param_0.56, broadcast.37), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  param_1.115 = f32[32,128]{1,0} parameter(1)
+  constant_12_clone_1 = f32[] constant(0.2), metadata={op_type="GreaterEqual" op_name="sequential/dropout/dropout/GreaterEqual"}
+  broadcast.34.clone.1 = f32[32,128]{1,0} broadcast(constant_12_clone_1), dimensions={}, metadata={op_type="GreaterEqual" op_name="sequential/dropout/dropout/GreaterEqual"}
+  compare.7.clone.1 = pred[32,128]{1,0} compare(param_1.115, broadcast.34.clone.1), direction=GE, metadata={op_type="GreaterEqual" op_name="sequential/dropout/dropout/GreaterEqual"}
+  constant_11 = f32[] constant(1.25), metadata={op_type="Mul" op_name="sequential/dropout/dropout/Mul"}
+  broadcast.33 = f32[32,128]{1,0} broadcast(constant_11), dimensions={}, metadata={op_type="Mul" op_name="sequential/dropout/dropout/Mul"}
+  select.9 = f32[32,128]{1,0} select(compare.7.clone.1, broadcast.33, broadcast.37), metadata={op_type="Mul" op_name="sequential/dropout/dropout/Mul"}
+  multiply.22 = f32[32,128]{1,0} multiply(maximum.1, select.9), metadata={op_type="Mul" op_name="sequential/dropout/dropout/Mul_1"}
+  ROOT tuple.11 = (f32[32,128]{1,0}, pred[32,128]{1,0}) tuple(multiply.22, compare.7.clone.1)
+}
+
+region_0.194 {
+  Arg_0.195 = f32[] parameter(0)
+  Arg_1.196 = f32[] parameter(1)
+  ROOT add.197 = f32[] add(Arg_0.195, Arg_1.196), metadata={op_type="BiasAddGrad" op_name="gradient_tape/sequential/dense/BiasAdd/BiasAddGrad"}
+}
+
+input_fused_computation_reduce.2 {
+  param_2.129 = f32[32,128]{1,0} parameter(2)
+  constant_30_clone_1 = f32[] constant(0), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  broadcast.36.clone.1 = f32[32,128]{1,0} broadcast(constant_30_clone_1), dimensions={}, metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  maximum.0.clone.1 = f32[32,128]{1,0} maximum(param_2.129, broadcast.36.clone.1), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  compare.3.clone.1 = pred[32,128]{1,0} compare(maximum.0.clone.1, broadcast.36.clone.1), direction=GT, metadata={op_type="ReluGrad" op_name="gradient_tape/sequential/dense/ReluGrad"}
+  param_0.57 = pred[32,128]{1,0} parameter(0)
+  param_1.116 = f32[32,128]{1,0} parameter(1)
+  select.6.clone.1 = f32[32,128]{1,0} select(param_0.57, param_1.116, broadcast.36.clone.1), metadata={op_type="Mul" op_name="gradient_tape/sequential/dropout/dropout/Mul_2"}
+  select.5.clone.1 = f32[32,128]{1,0} select(compare.3.clone.1, select.6.clone.1, broadcast.36.clone.1), metadata={op_type="ReluGrad" op_name="gradient_tape/sequential/dense/ReluGrad"}
+  constant_70 = f32[] constant(-0), metadata={op_type="BiasAddGrad" op_name="gradient_tape/sequential/dense_1/BiasAdd/BiasAddGrad"}
+  reduce.6 = f32[128]{0} reduce(select.5.clone.1, constant_70), dimensions={0}, to_apply=region_0.194, metadata={op_type="BiasAddGrad" op_name="gradient_tape/sequential/dense/BiasAdd/BiasAddGrad"}
+  ROOT tuple.9 = (f32[128]{0}, f32[32,128]{1,0}) tuple(reduce.6, select.5.clone.1)
+}
+
+add_float_.120 {
+  x.121 = f32[] parameter(0)
+  y.122 = f32[] parameter(1)
+  ROOT add.123 = f32[] add(x.121, y.122)
+}
+
+fused_computation.22 {
+  param_0.55 = f32[32,10]{1,0} parameter(0)
+  param_1.114 = f32[32]{0} parameter(1)
+  broadcast.77.clone.1 = f32[32,10]{1,0} broadcast(param_1.114), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  subtract.26.clone.1 = f32[32,10]{1,0} subtract(param_0.55, broadcast.77.clone.1), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  exponential.1.clone.1 = f32[32,10]{1,0} exponential(subtract.26.clone.1), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant_32_clone_1 = f32[] constant(0), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  reduce.5.clone.1 = f32[32]{0} reduce(exponential.1.clone.1, constant_32_clone_1), dimensions={1}, to_apply=add_float_.120, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  log.0 = f32[32]{0} log(reduce.5.clone.1), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  ROOT tuple.10 = (f32[32]{0}, f32[32]{0}) tuple(log.0, reduce.5.clone.1)
+}
+
+horizontally_fused_computation {
+  param_0_0 = f32[] parameter(0)
+  param_0_1 = f32[] parameter(1)
+  add.20 = f32[] add(param_0_0, param_0_1), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp"}
+  reshape.1 = f32[1]{0} reshape(add.20), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp"}
+  param_1_0 = f32[] parameter(2)
+  param_1_1 = f32[] parameter(3)
+  add.21 = f32[] add(param_1_0, param_1_1), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp_2"}
+  reshape.2 = f32[1]{0} reshape(add.21), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp_2"}
+  concatenate = f32[2]{0} concatenate(reshape.1, reshape.2), dimensions={0}
+  slice = f32[1]{0} slice(concatenate), slice={[0:1]}
+  slice.1 = f32[1]{0} slice(concatenate), slice={[1:2]}
+  ROOT tuple.12 = (f32[1]{0}, f32[1]{0}) tuple(slice, slice.1)
+}
+
+ENTRY cluster_0__XlaCompiledKernel_true__XlaHasReferenceVars_false__XlaNumConstantArgs_0__XlaNumResourceArgs_18_.340 {
+  constant_306 = f32[] constant(32), metadata={op_type="Mul" op_name="Mul"}
+  copy = f32[] copy(constant_306)
+  arg7.8 = f32[128]{0} parameter(7), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  arg5.6 = f32[] parameter(5), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  arg4.5 = f32[] parameter(4), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  arg6.7 = f32[] parameter(6), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  arg3.4 = s64[] parameter(3), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  fusion.12 = f32[] fusion(arg5.6, arg4.5, arg6.7, arg3.4), kind=kLoop, calls=fused_computation.12, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  arg19.20 = f32[128]{0} parameter(19), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  arg1.2 = f32[32,28,28]{2,1,0} parameter(1), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  bitcast.1 = f32[32,784]{1,0} bitcast(arg1.2), metadata={op_type="Reshape" op_name="sequential/flatten/Reshape"}
+  arg8.9 = f32[784,128]{1,0} parameter(8), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  broadcast.40 = f32[32,128]{1,0} broadcast(arg7.8), dimensions={1}, metadata={op_type="BiasAdd" op_name="sequential/dense/BiasAdd"}
+  cublas-gemm.3 = f32[32,128]{1,0} custom-call(bitcast.1, arg8.9, broadcast.40), custom_call_target="__cublas$gemm", metadata={op_type="BiasAdd" op_name="sequential/dense/BiasAdd"}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":1,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"25088\",\"rhs_stride\":\"100352\",\"selected_algorithm\":\"-1\"}"
+  arg0.1 = f32[32,128]{1,0} parameter(0), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  fusion.18 = (f32[32,128]{1,0}, pred[32,128]{1,0}) fusion(cublas-gemm.3, arg0.1), kind=kLoop, calls=fused_computation.18, metadata={op_type="Mul" op_name="sequential/dropout/dropout/Mul_1"}
+  get-tuple-element.19 = pred[32,128]{1,0} get-tuple-element(fusion.18), index=1
+  get-tuple-element.18 = f32[32,128]{1,0} get-tuple-element(fusion.18), index=0
+  arg10.11 = f32[128,10]{1,0} parameter(10), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  arg9.10 = f32[10]{0} parameter(9), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  broadcast.57 = f32[32,10]{1,0} broadcast(arg9.10), dimensions={1}, metadata={op_type="BiasAdd" op_name="sequential/dense_1/BiasAdd"}
+  cublas-gemm.7 = f32[32,10]{1,0} custom-call(get-tuple-element.18, arg10.11, broadcast.57), custom_call_target="__cublas$gemm", metadata={op_type="BiasAdd" op_name="sequential/dense_1/BiasAdd"}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":1,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"4096\",\"rhs_stride\":\"1280\",\"selected_algorithm\":\"-1\"}"
+  constant_60 = f32[] constant(-inf), metadata={op_type="ArgMax" op_name="ArgMax"}
+  reduce.114 = f32[32]{0} reduce(cublas-gemm.7, constant_60), dimensions={1}, to_apply=max_float_.110, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  fusion.22 = (f32[32]{0}, f32[32]{0}) fusion(cublas-gemm.7, reduce.114), kind=kLoop, calls=fused_computation.22, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  get-tuple-element.17 = f32[32]{0} get-tuple-element(fusion.22), index=1
+  arg2.3 = u8[32]{0} parameter(2), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  fusion.15 = f32[32,10]{1,0} fusion(get-tuple-element.17, arg2.3, cublas-gemm.7, reduce.114), kind=kLoop, calls=fused_computation.15, metadata={op_type="Mul" op_name="gradient_tape/sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/mul"}
+  cublas-gemm.9 = f32[32,128]{1,0} custom-call(fusion.15, arg10.11), custom_call_target="__cublas$gemm", metadata={op_type="MatMul" op_name="gradient_tape/sequential/dense_1/MatMul/MatMul"}, backend_config="{\"alpha_real\":1.25,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"1\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"320\",\"rhs_stride\":\"1280\",\"selected_algorithm\":\"-1\"}"
+  input_fusion_reduce.2 = (f32[128]{0}, f32[32,128]{1,0}) fusion(get-tuple-element.19, cublas-gemm.9, cublas-gemm.3), kind=kInput, calls=input_fused_computation_reduce.2, metadata={op_type="BiasAddGrad" op_name="gradient_tape/sequential/dense/BiasAdd/BiasAddGrad"}
+  get-tuple-element.14 = f32[128]{0} get-tuple-element(input_fusion_reduce.2), index=0
+  arg20.21 = f32[128]{0} parameter(20), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  fusion.10 = (f32[128]{0}, f32[128]{0}, f32[128]{0}) fusion(arg7.8, fusion.12, arg19.20, arg5.6, get-tuple-element.14, /*index=5*/arg20.21, arg6.7), kind=kLoop, calls=fused_computation.10, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+  get-tuple-element.23 = f32[128]{0} get-tuple-element(fusion.10), index=0
+  arg17.18 = f32[784,128]{1,0} parameter(17), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  get-tuple-element.15 = f32[32,128]{1,0} get-tuple-element(input_fusion_reduce.2), index=1
+  cublas-gemm.11 = f32[784,128]{1,0} custom-call(bitcast.1, get-tuple-element.15), custom_call_target="__cublas$gemm", metadata={op_type="MatMul" op_name="gradient_tape/sequential/dense/MatMul/MatMul"}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"0\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"25088\",\"rhs_stride\":\"4096\",\"selected_algorithm\":\"-1\"}"
+  arg18.19 = f32[784,128]{1,0} parameter(18), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  fusion.7 = (f32[784,128]{1,0}, f32[784,128]{1,0}, f32[784,128]{1,0}) fusion(arg8.9, fusion.12, arg17.18, arg5.6, cublas-gemm.11, /*index=5*/arg18.19, arg6.7), kind=kLoop, calls=fused_computation.7, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+  get-tuple-element.24 = f32[784,128]{1,0} get-tuple-element(fusion.7), index=0
+  arg11.12 = f32[10]{0} parameter(11), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  constant_151 = f32[] constant(-0), metadata={op_type="BiasAddGrad" op_name="gradient_tape/sequential/dense_1/BiasAdd/BiasAddGrad"}
+  reduce.156 = f32[10]{0} reduce(fusion.15, constant_151), dimensions={0}, to_apply=region_0.152, metadata={op_type="BiasAddGrad" op_name="gradient_tape/sequential/dense_1/BiasAdd/BiasAddGrad"}
+  arg12.13 = f32[10]{0} parameter(12), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  fusion.4 = (f32[10]{0}, f32[10]{0}, f32[10]{0}) fusion(arg9.10, fusion.12, arg11.12, arg5.6, reduce.156, /*index=5*/arg12.13, arg6.7), kind=kLoop, calls=fused_computation.4, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+  get-tuple-element.25 = f32[10]{0} get-tuple-element(fusion.4), index=0
+  arg13.14 = f32[128,10]{1,0} parameter(13), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  cublas-gemm.13 = f32[128,10]{1,0} custom-call(get-tuple-element.18, fusion.15), custom_call_target="__cublas$gemm", metadata={op_type="MatMul" op_name="gradient_tape/sequential/dense_1/MatMul/MatMul_1"}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"0\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"4096\",\"rhs_stride\":\"320\",\"selected_algorithm\":\"-1\"}"
+  arg14.15 = f32[128,10]{1,0} parameter(14), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  fusion.1 = (f32[128,10]{1,0}, f32[128,10]{1,0}, f32[128,10]{1,0}) fusion(arg10.11, fusion.12, arg13.14, arg5.6, cublas-gemm.13, /*index=5*/arg14.15, arg6.7), kind=kLoop, calls=fused_computation.1, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+  get-tuple-element.26 = f32[128,10]{1,0} get-tuple-element(fusion.1), index=0
+  get-tuple-element.27 = f32[10]{0} get-tuple-element(fusion.4), index=1
+  get-tuple-element.28 = f32[10]{0} get-tuple-element(fusion.4), index=2
+  get-tuple-element.29 = f32[128,10]{1,0} get-tuple-element(fusion.1), index=1
+  get-tuple-element.30 = f32[128,10]{1,0} get-tuple-element(fusion.1), index=2
+  arg15.16 = f32[] parameter(15), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  get-tuple-element.16 = f32[32]{0} get-tuple-element(fusion.22), index=0
+  input_fusion_reduce.1 = f32[] fusion(get-tuple-element.16, arg2.3, cublas-gemm.7, reduce.114), kind=kInput, calls=input_fused_computation_reduce.1, metadata={op_type="Sum" op_name="sparse_categorical_crossentropy/weighted_loss/Sum"}
+  arg16.17 = f32[] parameter(16), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  iota.62 = s32[32,10]{1,0} iota(), iota_dimension=1, metadata={op_type="ArgMax" op_name="ArgMax"}
+  constant_61 = s32[] constant(0), metadata={op_type="ArgMax" op_name="ArgMax"}
+  reduce.75 = (f32[32]{0}, s32[32]{0}) reduce(cublas-gemm.7, iota.62, constant_60, constant_61), dimensions={1}, to_apply=minmax_func.63, metadata={op_type="ArgMax" op_name="ArgMax"}
+  get-tuple-element.76 = s32[32]{0} get-tuple-element(reduce.75), index=1, metadata={op_type="ArgMax" op_name="ArgMax"}
+  input_fusion_reduce = f32[] fusion(get-tuple-element.76, arg2.3), kind=kInput, calls=input_fused_computation_reduce, metadata={op_type="Sum" op_name="Sum_2"}
+  fusion.25 = (f32[1]{0}, f32[1]{0}) fusion(arg15.16, input_fusion_reduce.1, arg16.17, input_fusion_reduce), kind=kInput, calls=horizontally_fused_computation
+  get-tuple-element.20 = f32[1]{0} get-tuple-element(fusion.25), index=0
+  bitcast.3 = f32[] bitcast(get-tuple-element.20), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp"}
+  get-tuple-element.21 = f32[1]{0} get-tuple-element(fusion.25), index=1
+  bitcast.4 = f32[] bitcast(get-tuple-element.21), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp_2"}
+  get-tuple-element.33 = f32[784,128]{1,0} get-tuple-element(fusion.7), index=1
+  get-tuple-element.34 = f32[784,128]{1,0} get-tuple-element(fusion.7), index=2
+  get-tuple-element.35 = f32[128]{0} get-tuple-element(fusion.10), index=1
+  get-tuple-element.36 = f32[128]{0} get-tuple-element(fusion.10), index=2
+  ROOT tuple.13 = (f32[], f32[128]{0}, f32[784,128]{1,0}, f32[10]{0}, f32[128,10]{1,0}, /*index=5*/f32[10]{0}, f32[10]{0}, f32[128,10]{1,0}, f32[128,10]{1,0}, f32[], /*index=10*/f32[], f32[784,128]{1,0}, f32[784,128]{1,0}, f32[128]{0}, f32[128]{0}) tuple(copy, get-tuple-element.23, get-tuple-element.24, get-tuple-element.25, get-tuple-element.26, /*index=5*/get-tuple-element.27, get-tuple-element.28, get-tuple-element.29, get-tuple-element.30, bitcast.3, /*index=10*/bitcast.4, get-tuple-element.33, get-tuple-element.34, get-tuple-element.35, get-tuple-element.36)
+}
+

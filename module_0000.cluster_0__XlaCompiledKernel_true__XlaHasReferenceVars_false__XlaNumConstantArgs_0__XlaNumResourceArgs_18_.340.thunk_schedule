@@ -1,0 +1,33 @@
+Total order:
+kCopy      	(no HloInstruction)
+kKernel    	(no HloInstruction), kernel = fusion_12, launch dimensions = blocks: {1, 1, 1}, threads/block: {1, 1, 1}
+kKernel    	(no HloInstruction), kernel = broadcast_57, launch dimensions = blocks: {1, 1, 1}, threads/block: {80, 1, 1}
+kKernel    	(no HloInstruction), kernel = iota_62, launch dimensions = blocks: {1, 1, 1}, threads/block: {80, 1, 1}
+kKernel    	(no HloInstruction), kernel = broadcast_40, launch dimensions = blocks: {8, 1, 1}, threads/block: {32, 4, 1}
+kGemm      	(no HloInstruction)
+kKernel    	(no HloInstruction), kernel = fusion_18, launch dimensions = blocks: {4, 1, 1}, threads/block: {256, 1, 1}
+kGemm      	(no HloInstruction)
+kKernel    	(no HloInstruction), kernel = reduce_75, launch dimensions = blocks: {1, 1, 1}, threads/block: {32, 1, 1}
+kSequential	(no HloInstruction)
+  kKernel	, kernel = input_fusion_reduce, launch dimensions = blocks: {1, 1, 1}, threads/block: {160, 1, 1}
+
+kKernel    	(no HloInstruction), kernel = reduce_114, launch dimensions = blocks: {1, 1, 1}, threads/block: {8, 1, 1}
+kKernel    	(no HloInstruction), kernel = fusion_22, launch dimensions = blocks: {1, 1, 1}, threads/block: {8, 1, 1}
+kSequential	(no HloInstruction)
+  kKernel	, kernel = input_fusion_reduce_1, launch dimensions = blocks: {1, 1, 1}, threads/block: {32, 1, 1}
+
+kKernel    	(no HloInstruction), kernel = fusion_15, launch dimensions = blocks: {1, 1, 1}, threads/block: {80, 1, 1}
+kGemm      	(no HloInstruction)
+kKernel    	(no HloInstruction), kernel = fusion_25, launch dimensions = blocks: {1, 1, 1}, threads/block: {2, 1, 1}
+kKernel    	(no HloInstruction), kernel = reduce_156, launch dimensions = blocks: {1, 1, 1}, threads/block: {5, 1, 1}
+kKernel    	(no HloInstruction), kernel = fusion_4, launch dimensions = blocks: {1, 1, 1}, threads/block: {5, 1, 1}
+kKernel    	(no HloInstruction), kernel = fusion_1, launch dimensions = blocks: {2, 1, 1}, threads/block: {256, 1, 1}
+kGemm      	(no HloInstruction)
+kSequential	(no HloInstruction)
+  kKernel	, kernel = input_fusion_reduce_2, launch dimensions = blocks: {2, 1, 1}, threads/block: {1024, 1, 1}
+
+kKernel    	(no HloInstruction), kernel = fusion_10, launch dimensions = blocks: {1, 1, 1}, threads/block: {32, 1, 1}
+kGemm      	(no HloInstruction)
+kKernel    	(no HloInstruction), kernel = fusion_7, launch dimensions = blocks: {98, 1, 1}, threads/block: {256, 1, 1}
+
+Dependencies:

@@ -1,0 +1,1030 @@
+BufferAssignment:
+allocation 0: 0x7f56c03b06d0, size 401408, maybe-live-out:
+ value: <75 fusion.7{0} @0> (size=401408,offset=0): f32[784,128]{1,0}
+ value: <83 fusion.15 @0> (size=1280,offset=0): f32[32,10]{1,0}
+ value: <89 input_fusion_reduce.2{1} @0> (size=16384,offset=0): f32[32,128]{1,0}
+allocation 1: 0x7f56c03b0780, size 401408, maybe-live-out:
+ value: <61 cublas-gemm.9 @0> (size=16384,offset=0): f32[32,128]{1,0}
+ value: <76 fusion.7{1} @0> (size=401408,offset=0): f32[784,128]{1,0}
+ value: <85 fusion.18{0} @0> (size=16384,offset=0): f32[32,128]{1,0}
+allocation 2: 0x7f56c03b0830, size 401408, maybe-live-out:
+ value: <47 broadcast.40 @0> (size=16384,offset=0): f32[32,128]{1,0}
+ value: <59 cublas-gemm.3 @0> (size=16384,offset=0): f32[32,128]{1,0}
+ value: <62 cublas-gemm.11 @0> (size=401408,offset=0): f32[784,128]{1,0}
+ value: <77 fusion.7{2} @0> (size=401408,offset=0): f32[784,128]{1,0}
+allocation 3: 0x7f56c03b08e0, size 401408, parameter 8, shape |f32[784,128]| at ShapeIndex {}:
+ value: <34 arg8.9 @0> (size=401408,offset=0): f32[784,128]{1,0}
+allocation 4: 0x7f56c03b0990, size 401408, parameter 17, shape |f32[784,128]| at ShapeIndex {}:
+ value: <43 arg17.18 @0> (size=401408,offset=0): f32[784,128]{1,0}
+allocation 5: 0x7f56c03b0a40, size 401408, parameter 18, shape |f32[784,128]| at ShapeIndex {}:
+ value: <44 arg18.19 @0> (size=401408,offset=0): f32[784,128]{1,0}
+allocation 6: 0x7f56c03b0af0, size 100352, parameter 1, shape |f32[32,28,28]| at ShapeIndex {}:
+ value: <27 arg1.2 @0> (size=100352,offset=0): f32[32,28,28]{2,1,0}
+allocation 7: 0x7f56c03b0ba0, size 16384, parameter 0, shape |f32[32,128]| at ShapeIndex {}:
+ value: <26 arg0.1 @0> (size=16384,offset=0): f32[32,128]{1,0}
+allocation 8: 0x7f56c03b0c50, size 5120, maybe-live-out:
+ value: <67 fusion.1{0} @0> (size=5120,offset=0): f32[128,10]{1,0}
+allocation 9: 0x7f56c03b0d00, size 5120, maybe-live-out:
+ value: <51 iota.62 @0> (size=1280,offset=0): s32[32,10]{1,0}
+ value: <68 fusion.1{1} @0> (size=5120,offset=0): f32[128,10]{1,0}
+allocation 10: 0x7f56c03b0db0, size 5120, maybe-live-out:
+ value: <48 broadcast.57 @0> (size=1280,offset=0): f32[32,10]{1,0}
+ value: <60 cublas-gemm.7 @0> (size=1280,offset=0): f32[32,10]{1,0}
+ value: <63 cublas-gemm.13 @0> (size=5120,offset=0): f32[128,10]{1,0}
+ value: <69 fusion.1{2} @0> (size=5120,offset=0): f32[128,10]{1,0}
+allocation 11: 0x7f56c03b0e60, size 5120, parameter 10, shape |f32[128,10]| at ShapeIndex {}:
+ value: <36 arg10.11 @0> (size=5120,offset=0): f32[128,10]{1,0}
+allocation 12: 0x7f56c03b0f10, size 5120, parameter 13, shape |f32[128,10]| at ShapeIndex {}:
+ value: <39 arg13.14 @0> (size=5120,offset=0): f32[128,10]{1,0}
+allocation 13: 0x7f56c03b0fc0, size 5120, parameter 14, shape |f32[128,10]| at ShapeIndex {}:
+ value: <40 arg14.15 @0> (size=5120,offset=0): f32[128,10]{1,0}
+allocation 14: 0x7f56c03b1070, size 512, maybe-live-out:
+ value: <79 fusion.10{0} @0> (size=512,offset=0): f32[128]{0}
+ value: <92 fusion.22{1} @0> (size=128,offset=0): f32[32]{0}
+allocation 15: 0x7f56c03b1120, size 512, maybe-live-out:
+ value: <58 reduce.75{1} @0> (size=128,offset=0): s32[32]{0}
+ value: <80 fusion.10{1} @0> (size=512,offset=0): f32[128]{0}
+ value: <91 fusion.22{0} @0> (size=128,offset=0): f32[32]{0}
+allocation 16: 0x7f56c03b11d0, size 512, maybe-live-out:
+ value: <52 reduce.114 @0> (size=128,offset=0): f32[32]{0}
+ value: <57 reduce.75{0} @0> (size=128,offset=0): f32[32]{0}
+ value: <81 fusion.10{2} @0> (size=512,offset=0): f32[128]{0}
+ value: <88 input_fusion_reduce.2{0} @0> (size=512,offset=0): f32[128]{0}
+allocation 17: 0x7f56c03b1280, size 512, parameter 7, shape |f32[128]| at ShapeIndex {}:
+ value: <33 arg7.8 @0> (size=512,offset=0): f32[128]{0}
+allocation 18: 0x7f56c03b1330, size 512, parameter 19, shape |f32[128]| at ShapeIndex {}:
+ value: <45 arg19.20 @0> (size=512,offset=0): f32[128]{0}
+allocation 19: 0x7f56c03b13e0, size 512, parameter 20, shape |f32[128]| at ShapeIndex {}:
+ value: <46 arg20.21 @0> (size=512,offset=0): f32[128]{0}
+allocation 20: 0x7f56c03b1490, size 120, output shape is |(f32[], f32[128], f32[784,128], f32[10], f32[128,10], /*index=5*/f32[10], f32[10], f32[128,10], f32[128,10], f32[], /*index=10*/f32[], f32[784,128], f32[784,128], f32[128], f32[128])|, maybe-live-out:
+ value: <97 tuple.13{} @0> (size=120,offset=0): (f32[], f32[128]{0}, f32[784,128]{1,0}, f32[10]{0}, f32[128,10]{1,0}, /*index=5*/f32[10]{0}, f32[10]{0}, f32[128,10]{1,0}, f32[128,10]{1,0}, f32[], /*index=10*/f32[], f32[784,128]{1,0}, f32[784,128]{1,0}, f32[128]{0}, f32[128]{0})
+allocation 21: 0x7f56c03b1540, size 40, maybe-live-out:
+ value: <71 fusion.4{0} @0> (size=40,offset=0): f32[10]{0}
+allocation 22: 0x7f56c03b15f0, size 40, maybe-live-out:
+ value: <72 fusion.4{1} @0> (size=40,offset=0): f32[10]{0}
+allocation 23: 0x7f56c03b16a0, size 40, maybe-live-out:
+ value: <54 reduce.156 @0> (size=40,offset=0): f32[10]{0}
+ value: <73 fusion.4{2} @0> (size=40,offset=0): f32[10]{0}
+allocation 24: 0x7f56c03b1750, size 40, parameter 9, shape |f32[10]| at ShapeIndex {}:
+ value: <35 arg9.10 @0> (size=40,offset=0): f32[10]{0}
+allocation 25: 0x7f56c03b1800, size 40, parameter 11, shape |f32[10]| at ShapeIndex {}:
+ value: <37 arg11.12 @0> (size=40,offset=0): f32[10]{0}
+allocation 26: 0x7f56c03b18b0, size 40, parameter 12, shape |f32[10]| at ShapeIndex {}:
+ value: <38 arg12.13 @0> (size=40,offset=0): f32[10]{0}
+allocation 27: 0x7f56c03b1960, size 32, parameter 2, shape |u8[32]| at ShapeIndex {}:
+ value: <28 arg2.3 @0> (size=32,offset=0): u8[32]{0}
+allocation 28: 0x7f56c03b1a10, size 4, thread-local:
+ value: <10 maximum.113 @0> (size=4,offset=0): f32[]
+allocation 29: 0x7f56c03b1ac0, size 4, thread-local:
+ value: <9 y.112 @0> (size=4,offset=0): f32[]
+allocation 30: 0x7f56c03b1b70, size 4, thread-local:
+ value: <8 x.111 @0> (size=4,offset=0): f32[]
+allocation 31: 0x7f56c03b1c20, size 4, thread-local:
+ value: <16 add.155 @0> (size=4,offset=0): f32[]
+allocation 32: 0x7f56c03b1cd0, size 4, thread-local:
+ value: <15 Arg_1.154 @0> (size=4,offset=0): f32[]
+allocation 33: 0x7f56c03b1d80, size 4, thread-local:
+ value: <14 Arg_0.153 @0> (size=4,offset=0): f32[]
+allocation 34: 0x7f56c03b1e30, size 4, thread-local:
+ value: <7 fusion{1} @0> (size=4,offset=0): f32[]
+allocation 35: 0x7f56c03b1ee0, size 4, thread-local:
+ value: <6 fusion{0} @0> (size=4,offset=0): s32[]
+allocation 36: 0x7f56c03b1f90, size 4, thread-local:
+ value: <2 rhs_value.66 @0> (size=4,offset=0): f32[]
+allocation 37: 0x7f56c03b2040, size 8, parameter 3, shape |s64[]| at ShapeIndex {}:
+ value: <29 arg3.4 @0> (size=8,offset=0): s64[]
+allocation 38: 0x7f56c03b20f0, size 4, maybe-live-out:
+ value: <96 copy @0> (size=4,offset=0): f32[]
+allocation 39: 0x7f56c03b21a0, size 4, maybe-live-out:
+ value: <65 input_fusion_reduce.1 @0> (size=4,offset=0): f32[]
+ value: <94 fusion.25{0} @0> (size=4,offset=0): f32[1]{0}
+allocation 40: 0x7f56c03b2250, size 4, maybe-live-out:
+ value: <64 input_fusion_reduce @0> (size=4,offset=0): f32[]
+ value: <95 fusion.25{1} @0> (size=4,offset=0): f32[1]{0}
+allocation 41: 0x7f56c03b2300, size 4, constant:
+ value: <55 constant_306 @0> (size=4,offset=0): f32[]
+allocation 42: 0x7f56c03b23b0, size 4, parameter 5, shape |f32[]| at ShapeIndex {}:
+ value: <31 arg5.6 @0> (size=4,offset=0): f32[]
+allocation 43: 0x7f56c03b2460, size 4, parameter 4, shape |f32[]| at ShapeIndex {}:
+ value: <30 arg4.5 @0> (size=4,offset=0): f32[]
+allocation 44: 0x7f56c03b2510, size 4, parameter 6, shape |f32[]| at ShapeIndex {}:
+ value: <32 arg6.7 @0> (size=4,offset=0): f32[]
+allocation 45: 0x7f56c03b25c0, size 4, constant:
+ value: <49 constant_60 @0> (size=4,offset=0): f32[]
+allocation 46: 0x7f56c03b2670, size 4, constant:
+ value: <53 constant_151 @0> (size=4,offset=0): f32[]
+allocation 47: 0x7f56c03b2720, size 4, parameter 15, shape |f32[]| at ShapeIndex {}:
+ value: <41 arg15.16 @0> (size=4,offset=0): f32[]
+allocation 48: 0x7f56c03b27d0, size 4, parameter 16, shape |f32[]| at ShapeIndex {}:
+ value: <42 arg16.17 @0> (size=4,offset=0): f32[]
+allocation 49: 0x7f56c03b2880, size 4, constant:
+ value: <50 constant_61 @0> (size=4,offset=0): s32[]
+allocation 50: 0x7f56c03b2930, size 4, thread-local:
+ value: <0 lhs_value.64 @0> (size=4,offset=0): f32[]
+allocation 51: 0x7f56c03b29e0, size 16, thread-local:
+ value: <5 fusion{} @0> (size=16,offset=0): (s32[], f32[])
+allocation 52: 0x7f56c03b2a90, size 16, thread-local:
+ value: <4 tuple.74{} @0> (size=16,offset=0): (f32[], s32[])
+allocation 53: 0x7f56c03b2b40, size 4, thread-local:
+ value: <11 x.121 @0> (size=4,offset=0): f32[]
+allocation 54: 0x7f56c03b2bf0, size 4, thread-local:
+ value: <12 y.122 @0> (size=4,offset=0): f32[]
+allocation 55: 0x7f56c03b2ca0, size 4, thread-local:
+ value: <13 add.123 @0> (size=4,offset=0): f32[]
+allocation 56: 0x7f56c03b2d50, size 4, thread-local:
+ value: <17 Arg_0.195 @0> (size=4,offset=0): f32[]
+allocation 57: 0x7f56c03b2e00, size 4, thread-local:
+ value: <18 Arg_1.196 @0> (size=4,offset=0): f32[]
+allocation 58: 0x7f56c03b2eb0, size 4, thread-local:
+ value: <19 add.197 @0> (size=4,offset=0): f32[]
+allocation 59: 0x7f56c03b2f60, size 4, thread-local:
+ value: <23 x.292 @0> (size=4,offset=0): f32[]
+allocation 60: 0x7f56c03b3010, size 4, thread-local:
+ value: <24 y.293 @0> (size=4,offset=0): f32[]
+allocation 61: 0x7f56c03b30c0, size 4, thread-local:
+ value: <25 add.294 @0> (size=4,offset=0): f32[]
+allocation 62: 0x7f56c03b3170, size 4, thread-local:
+ value: <20 x.282 @0> (size=4,offset=0): f32[]
+allocation 63: 0x7f56c03b3220, size 4, thread-local:
+ value: <21 y.283 @0> (size=4,offset=0): f32[]
+allocation 64: 0x7f56c03b32d0, size 4, thread-local:
+ value: <22 add.284 @0> (size=4,offset=0): f32[]
+allocation 65: 0x7f56c03b3380, size 4, thread-local:
+ value: <1 lhs_index.65 @0> (size=4,offset=0): s32[]
+allocation 66: 0x7f56c03b3430, size 4, thread-local:
+ value: <3 rhs_index.67 @0> (size=4,offset=0): s32[]
+allocation 67: 0x7f56c03b34e0, size 5272, preallocated-temp:
+ value: <56 reduce.75{} @0> (size=16,offset=4352): (f32[32]{0}, s32[32]{0})
+ value: <66 fusion.1{} @0> (size=24,offset=4864): (f32[128,10]{1,0}, f32[128,10]{1,0}, f32[128,10]{1,0})
+ value: <70 fusion.4{} @0> (size=24,offset=4992): (f32[10]{0}, f32[10]{0}, f32[10]{0})
+ value: <74 fusion.7{} @0> (size=24,offset=5120): (f32[784,128]{1,0}, f32[784,128]{1,0}, f32[784,128]{1,0})
+ value: <78 fusion.10{} @0> (size=24,offset=5248): (f32[128]{0}, f32[128]{0}, f32[128]{0})
+ value: <82 fusion.12 @0> (size=4,offset=4096): f32[]
+ value: <84 fusion.18{} @0> (size=16,offset=4736): (f32[32,128]{1,0}, pred[32,128]{1,0})
+ value: <86 fusion.18{1} @0> (size=4096,offset=0): pred[32,128]{1,0}
+ value: <87 input_fusion_reduce.2{} @0> (size=16,offset=4480): (f32[128]{0}, f32[32,128]{1,0})
+ value: <90 fusion.22{} @0> (size=16,offset=4608): (f32[32]{0}, f32[32]{0})
+ value: <93 fusion.25{} @0> (size=16,offset=4224): (f32[1]{0}, f32[1]{0})
+
+Total bytes used: 2564824 (2.45MiB)
+
+Used values:
+<0 lhs_value.64 @0>
+ positions:
+  lhs_value.64
+ uses:
+  fusion, operand 2
+ from instruction:%lhs_value.64 = f32[] parameter(0)
+<1 lhs_index.65 @0>
+ positions:
+  lhs_index.65
+ uses:
+  fusion, operand 0
+ from instruction:%lhs_index.65 = s32[] parameter(1)
+<2 rhs_value.66 @0>
+ positions:
+  rhs_value.66
+ uses:
+  fusion, operand 3
+ from instruction:%rhs_value.66 = f32[] parameter(2)
+<3 rhs_index.67 @0>
+ positions:
+  rhs_index.67
+ uses:
+  fusion, operand 1
+ from instruction:%rhs_index.67 = s32[] parameter(3)
+<4 tuple.74{} @0>
+ positions:
+  tuple.74 {}
+ uses:
+ from instruction:%tuple.74 = (f32[], s32[]) tuple(f32[] %get-tuple-element.1, s32[] %get-tuple-element)
+<5 fusion{} @0>
+ positions:
+  fusion {}
+ uses:
+  get-tuple-element, operand 0 {}
+  get-tuple-element.1, operand 0 {}
+ from instruction:%fusion = (s32[], f32[]) fusion(s32[] %lhs_index.65, s32[] %rhs_index.67, f32[] %lhs_value.64, f32[] %rhs_value.66), kind=kLoop, calls=%fused_computation
+<6 fusion{0} @0>
+ positions:
+  fusion {0}
+  tuple.74 {1}
+  get-tuple-element
+ uses:
+  tuple.74, operand 1
+ from instruction:%fusion = (s32[], f32[]) fusion(s32[] %lhs_index.65, s32[] %rhs_index.67, f32[] %lhs_value.64, f32[] %rhs_value.66), kind=kLoop, calls=%fused_computation
+<7 fusion{1} @0>
+ positions:
+  fusion {1}
+  tuple.74 {0}
+  get-tuple-element.1
+ uses:
+  tuple.74, operand 0
+ from instruction:%fusion = (s32[], f32[]) fusion(s32[] %lhs_index.65, s32[] %rhs_index.67, f32[] %lhs_value.64, f32[] %rhs_value.66), kind=kLoop, calls=%fused_computation
+<8 x.111 @0>
+ positions:
+  x.111
+ uses:
+  maximum.113, operand 0
+ from instruction:%x.111 = f32[] parameter(0)
+<9 y.112 @0>
+ positions:
+  y.112
+ uses:
+  maximum.113, operand 1
+ from instruction:%y.112 = f32[] parameter(1)
+<10 maximum.113 @0>
+ positions:
+  maximum.113
+ uses:
+ from instruction:%maximum.113 = f32[] maximum(f32[] %x.111, f32[] %y.112)
+<11 x.121 @0>
+ positions:
+  x.121
+ uses:
+  add.123, operand 0
+ from instruction:%x.121 = f32[] parameter(0)
+<12 y.122 @0>
+ positions:
+  y.122
+ uses:
+  add.123, operand 1
+ from instruction:%y.122 = f32[] parameter(1)
+<13 add.123 @0>
+ positions:
+  add.123
+ uses:
+ from instruction:%add.123 = f32[] add(f32[] %x.121, f32[] %y.122)
+<14 Arg_0.153 @0>
+ positions:
+  Arg_0.153
+ uses:
+  add.155, operand 0
+ from instruction:%Arg_0.153 = f32[] parameter(0)
+<15 Arg_1.154 @0>
+ positions:
+  Arg_1.154
+ uses:
+  add.155, operand 1
+ from instruction:%Arg_1.154 = f32[] parameter(1)
+<16 add.155 @0>
+ positions:
+  add.155
+ uses:
+ from instruction:%add.155 = f32[] add(f32[] %Arg_0.153, f32[] %Arg_1.154), metadata={op_type="BiasAddGrad" op_name="gradient_tape/sequential/dense_1/BiasAdd/BiasAddGrad"}
+<17 Arg_0.195 @0>
+ positions:
+  Arg_0.195
+ uses:
+  add.197, operand 0
+ from instruction:%Arg_0.195 = f32[] parameter(0)
+<18 Arg_1.196 @0>
+ positions:
+  Arg_1.196
+ uses:
+  add.197, operand 1
+ from instruction:%Arg_1.196 = f32[] parameter(1)
+<19 add.197 @0>
+ positions:
+  add.197
+ uses:
+ from instruction:%add.197 = f32[] add(f32[] %Arg_0.195, f32[] %Arg_1.196), metadata={op_type="BiasAddGrad" op_name="gradient_tape/sequential/dense/BiasAdd/BiasAddGrad"}
+<20 x.282 @0>
+ positions:
+  x.282
+ uses:
+  add.284, operand 0
+ from instruction:%x.282 = f32[] parameter(0)
+<21 y.283 @0>
+ positions:
+  y.283
+ uses:
+  add.284, operand 1
+ from instruction:%y.283 = f32[] parameter(1)
+<22 add.284 @0>
+ positions:
+  add.284
+ uses:
+ from instruction:%add.284 = f32[] add(f32[] %x.282, f32[] %y.283)
+<23 x.292 @0>
+ positions:
+  x.292
+ uses:
+  add.294, operand 0
+ from instruction:%x.292 = f32[] parameter(0)
+<24 y.293 @0>
+ positions:
+  y.293
+ uses:
+  add.294, operand 1
+ from instruction:%y.293 = f32[] parameter(1)
+<25 add.294 @0>
+ positions:
+  add.294
+ uses:
+ from instruction:%add.294 = f32[] add(f32[] %x.292, f32[] %y.293)
+<26 arg0.1 @0>
+ positions:
+  arg0.1
+ uses:
+  fusion.18, operand 1
+ from instruction:%arg0.1 = f32[32,128]{1,0} parameter(0), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<27 arg1.2 @0>
+ positions:
+  arg1.2
+  bitcast.1
+ uses:
+  bitcast.1, operand 0
+  cublas-gemm.3, operand 0
+  cublas-gemm.11, operand 0
+ from instruction:%arg1.2 = f32[32,28,28]{2,1,0} parameter(1), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<28 arg2.3 @0>
+ positions:
+  arg2.3
+ uses:
+  fusion.15, operand 1
+  input_fusion_reduce, operand 1
+  input_fusion_reduce.1, operand 1
+ from instruction:%arg2.3 = u8[32]{0} parameter(2), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<29 arg3.4 @0>
+ positions:
+  arg3.4
+ uses:
+  fusion.12, operand 3
+ from instruction:%arg3.4 = s64[] parameter(3), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<30 arg4.5 @0>
+ positions:
+  arg4.5
+ uses:
+  fusion.12, operand 1
+ from instruction:%arg4.5 = f32[] parameter(4), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<31 arg5.6 @0>
+ positions:
+  arg5.6
+ uses:
+  fusion.10, operand 3
+  fusion.12, operand 0
+  fusion.1, operand 3
+  fusion.4, operand 3
+  fusion.7, operand 3
+ from instruction:%arg5.6 = f32[] parameter(5), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<32 arg6.7 @0>
+ positions:
+  arg6.7
+ uses:
+  fusion.10, operand 6
+  fusion.12, operand 2
+  fusion.1, operand 6
+  fusion.4, operand 6
+  fusion.7, operand 6
+ from instruction:%arg6.7 = f32[] parameter(6), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<33 arg7.8 @0>
+ positions:
+  arg7.8
+ uses:
+  broadcast.40, operand 0
+  fusion.10, operand 0
+ from instruction:%arg7.8 = f32[128]{0} parameter(7), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<34 arg8.9 @0>
+ positions:
+  arg8.9
+ uses:
+  cublas-gemm.3, operand 1
+  fusion.7, operand 0
+ from instruction:%arg8.9 = f32[784,128]{1,0} parameter(8), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<35 arg9.10 @0>
+ positions:
+  arg9.10
+ uses:
+  broadcast.57, operand 0
+  fusion.4, operand 0
+ from instruction:%arg9.10 = f32[10]{0} parameter(9), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<36 arg10.11 @0>
+ positions:
+  arg10.11
+ uses:
+  cublas-gemm.9, operand 1
+  cublas-gemm.7, operand 1
+  fusion.1, operand 0
+ from instruction:%arg10.11 = f32[128,10]{1,0} parameter(10), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<37 arg11.12 @0>
+ positions:
+  arg11.12
+ uses:
+  fusion.4, operand 2
+ from instruction:%arg11.12 = f32[10]{0} parameter(11), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<38 arg12.13 @0>
+ positions:
+  arg12.13
+ uses:
+  fusion.4, operand 5
+ from instruction:%arg12.13 = f32[10]{0} parameter(12), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<39 arg13.14 @0>
+ positions:
+  arg13.14
+ uses:
+  fusion.1, operand 2
+ from instruction:%arg13.14 = f32[128,10]{1,0} parameter(13), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<40 arg14.15 @0>
+ positions:
+  arg14.15
+ uses:
+  fusion.1, operand 5
+ from instruction:%arg14.15 = f32[128,10]{1,0} parameter(14), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<41 arg15.16 @0>
+ positions:
+  arg15.16
+ uses:
+  fusion.25, operand 0
+ from instruction:%arg15.16 = f32[] parameter(15), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<42 arg16.17 @0>
+ positions:
+  arg16.17
+ uses:
+  fusion.25, operand 2
+ from instruction:%arg16.17 = f32[] parameter(16), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<43 arg17.18 @0>
+ positions:
+  arg17.18
+ uses:
+  fusion.7, operand 2
+ from instruction:%arg17.18 = f32[784,128]{1,0} parameter(17), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<44 arg18.19 @0>
+ positions:
+  arg18.19
+ uses:
+  fusion.7, operand 5
+ from instruction:%arg18.19 = f32[784,128]{1,0} parameter(18), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<45 arg19.20 @0>
+ positions:
+  arg19.20
+ uses:
+  fusion.10, operand 2
+ from instruction:%arg19.20 = f32[128]{0} parameter(19), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<46 arg20.21 @0>
+ positions:
+  arg20.21
+ uses:
+  fusion.10, operand 5
+ from instruction:%arg20.21 = f32[128]{0} parameter(20), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<47 broadcast.40 @0>
+ positions:
+  broadcast.40
+ uses:
+  cublas-gemm.3, operand 2
+ from instruction:%broadcast.40 = f32[32,128]{1,0} broadcast(f32[128]{0} %arg7.8), dimensions={1}, metadata={op_type="BiasAdd" op_name="sequential/dense/BiasAdd"}
+<48 broadcast.57 @0>
+ positions:
+  broadcast.57
+ uses:
+  cublas-gemm.7, operand 2
+ from instruction:%broadcast.57 = f32[32,10]{1,0} broadcast(f32[10]{0} %arg9.10), dimensions={1}, metadata={op_type="BiasAdd" op_name="sequential/dense_1/BiasAdd"}
+<49 constant_60 @0>
+ positions:
+  constant_60
+ uses:
+  reduce.75, operand 2
+  reduce.114, operand 1
+ from instruction:%constant_60 = f32[] constant(-inf), metadata={op_type="ArgMax" op_name="ArgMax"}
+<50 constant_61 @0>
+ positions:
+  constant_61
+ uses:
+  reduce.75, operand 3
+ from instruction:%constant_61 = s32[] constant(0), metadata={op_type="ArgMax" op_name="ArgMax"}
+<51 iota.62 @0>
+ positions:
+  iota.62
+ uses:
+  reduce.75, operand 1
+ from instruction:%iota.62 = s32[32,10]{1,0} iota(), iota_dimension=1, metadata={op_type="ArgMax" op_name="ArgMax"}
+<52 reduce.114 @0>
+ positions:
+  reduce.114
+ uses:
+  fusion.15, operand 3
+  fusion.22, operand 1
+  input_fusion_reduce.1, operand 3
+ from instruction:%reduce.114 = f32[32]{0} reduce(f32[32,10]{1,0} %cublas-gemm.7, f32[] %constant_60), dimensions={1}, to_apply=%max_float_.110, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+<53 constant_151 @0>
+ positions:
+  constant_151
+ uses:
+  reduce.156, operand 1
+ from instruction:%constant_151 = f32[] constant(-0), metadata={op_type="BiasAddGrad" op_name="gradient_tape/sequential/dense_1/BiasAdd/BiasAddGrad"}
+<54 reduce.156 @0>
+ positions:
+  reduce.156
+ uses:
+  fusion.4, operand 4
+ from instruction:%reduce.156 = f32[10]{0} reduce(f32[32,10]{1,0} %fusion.15, f32[] %constant_151), dimensions={0}, to_apply=%region_0.152, metadata={op_type="BiasAddGrad" op_name="gradient_tape/sequential/dense_1/BiasAdd/BiasAddGrad"}
+<55 constant_306 @0>
+ positions:
+  constant_306
+ uses:
+  copy, operand 0
+ from instruction:%constant_306 = f32[] constant(32), metadata={op_type="Mul" op_name="Mul"}
+<56 reduce.75{} @0>
+ positions:
+  reduce.75 {}
+ uses:
+  get-tuple-element.76, operand 0 {}
+ from instruction:%reduce.75 = (f32[32]{0}, s32[32]{0}) reduce(f32[32,10]{1,0} %cublas-gemm.7, s32[32,10]{1,0} %iota.62, f32[] %constant_60, s32[] %constant_61), dimensions={1}, to_apply=%minmax_func.63, metadata={op_type="ArgMax" op_name="ArgMax"}
+<57 reduce.75{0} @0>
+ positions:
+  reduce.75 {0}
+ uses:
+ from instruction:%reduce.75 = (f32[32]{0}, s32[32]{0}) reduce(f32[32,10]{1,0} %cublas-gemm.7, s32[32,10]{1,0} %iota.62, f32[] %constant_60, s32[] %constant_61), dimensions={1}, to_apply=%minmax_func.63, metadata={op_type="ArgMax" op_name="ArgMax"}
+<58 reduce.75{1} @0>
+ positions:
+  reduce.75 {1}
+  get-tuple-element.76
+ uses:
+  input_fusion_reduce, operand 0
+ from instruction:%reduce.75 = (f32[32]{0}, s32[32]{0}) reduce(f32[32,10]{1,0} %cublas-gemm.7, s32[32,10]{1,0} %iota.62, f32[] %constant_60, s32[] %constant_61), dimensions={1}, to_apply=%minmax_func.63, metadata={op_type="ArgMax" op_name="ArgMax"}
+<59 cublas-gemm.3 @0>
+ positions:
+  cublas-gemm.3
+ uses:
+  fusion.18, operand 0
+  input_fusion_reduce.2, operand 2
+ from instruction:%cublas-gemm.3 = f32[32,128]{1,0} custom-call(f32[32,784]{1,0} %bitcast.1, f32[784,128]{1,0} %arg8.9, f32[32,128]{1,0} %broadcast.40), custom_call_target="__cublas$gemm", metadata={op_type="BiasAdd" op_name="sequential/dense/BiasAdd"}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":1,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"25088\",\"rhs_stride\":\"100352\",\"selected_algorithm\":\"-1\"}"
+<60 cublas-gemm.7 @0>
+ positions:
+  cublas-gemm.7
+ uses:
+  reduce.75, operand 0
+  reduce.114, operand 0
+  fusion.15, operand 2
+  fusion.22, operand 0
+  input_fusion_reduce.1, operand 2
+ from instruction:%cublas-gemm.7 = f32[32,10]{1,0} custom-call(f32[32,128]{1,0} %get-tuple-element.18, f32[128,10]{1,0} %arg10.11, f32[32,10]{1,0} %broadcast.57), custom_call_target="__cublas$gemm", metadata={op_type="BiasAdd" op_name="sequential/dense_1/BiasAdd"}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":1,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"4096\",\"rhs_stride\":\"1280\",\"selected_algorithm\":\"-1\"}"
+<61 cublas-gemm.9 @0>
+ positions:
+  cublas-gemm.9
+ uses:
+  input_fusion_reduce.2, operand 1
+ from instruction:%cublas-gemm.9 = f32[32,128]{1,0} custom-call(f32[32,10]{1,0} %fusion.15, f32[128,10]{1,0} %arg10.11), custom_call_target="__cublas$gemm", metadata={op_type="MatMul" op_name="gradient_tape/sequential/dense_1/MatMul/MatMul"}, backend_config="{\"alpha_real\":1.25,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"1\"],\"rhs_contracting_dimensions\":[\"1\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"320\",\"rhs_stride\":\"1280\",\"selected_algorithm\":\"-1\"}"
+<62 cublas-gemm.11 @0>
+ positions:
+  cublas-gemm.11
+ uses:
+  fusion.7, operand 4
+ from instruction:%cublas-gemm.11 = f32[784,128]{1,0} custom-call(f32[32,784]{1,0} %bitcast.1, f32[32,128]{1,0} %get-tuple-element.15), custom_call_target="__cublas$gemm", metadata={op_type="MatMul" op_name="gradient_tape/sequential/dense/MatMul/MatMul"}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"0\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"25088\",\"rhs_stride\":\"4096\",\"selected_algorithm\":\"-1\"}"
+<63 cublas-gemm.13 @0>
+ positions:
+  cublas-gemm.13
+ uses:
+  fusion.1, operand 4
+ from instruction:%cublas-gemm.13 = f32[128,10]{1,0} custom-call(f32[32,128]{1,0} %get-tuple-element.18, f32[32,10]{1,0} %fusion.15), custom_call_target="__cublas$gemm", metadata={op_type="MatMul" op_name="gradient_tape/sequential/dense_1/MatMul/MatMul_1"}, backend_config="{\"alpha_real\":1,\"alpha_imag\":0,\"beta\":0,\"dot_dimension_numbers\":{\"lhs_contracting_dimensions\":[\"0\"],\"rhs_contracting_dimensions\":[\"0\"],\"lhs_batch_dimensions\":[],\"rhs_batch_dimensions\":[]},\"batch_size\":\"1\",\"lhs_stride\":\"4096\",\"rhs_stride\":\"320\",\"selected_algorithm\":\"-1\"}"
+<64 input_fusion_reduce @0>
+ positions:
+  input_fusion_reduce
+ uses:
+  fusion.25, operand 3
+ from instruction:%input_fusion_reduce = f32[] fusion(s32[32]{0} %get-tuple-element.76, u8[32]{0} %arg2.3), kind=kInput, calls=%input_fused_computation_reduce, metadata={op_type="Sum" op_name="Sum_2"}
+<65 input_fusion_reduce.1 @0>
+ positions:
+  input_fusion_reduce.1
+ uses:
+  fusion.25, operand 1
+ from instruction:%input_fusion_reduce.1 = f32[] fusion(f32[32]{0} %get-tuple-element.16, u8[32]{0} %arg2.3, f32[32,10]{1,0} %cublas-gemm.7, f32[32]{0} %reduce.114), kind=kInput, calls=%input_fused_computation_reduce.1, metadata={op_type="Sum" op_name="sparse_categorical_crossentropy/weighted_loss/Sum"}
+<66 fusion.1{} @0>
+ positions:
+  fusion.1 {}
+ uses:
+  get-tuple-element.26, operand 0 {}
+  get-tuple-element.29, operand 0 {}
+  get-tuple-element.30, operand 0 {}
+ from instruction:%fusion.1 = (f32[128,10]{1,0}, f32[128,10]{1,0}, f32[128,10]{1,0}) fusion(f32[128,10]{1,0} %arg10.11, f32[] %fusion.12, f32[128,10]{1,0} %arg13.14, f32[] %arg5.6, f32[128,10]{1,0} %cublas-gemm.13, /*index=5*/f32[128,10]{1,0} %arg14.15, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.1, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+<67 fusion.1{0} @0>
+ positions:
+  fusion.1 {0}
+  get-tuple-element.26
+  tuple.13 {4}
+ uses:
+  tuple.13, operand 4
+ from instruction:%fusion.1 = (f32[128,10]{1,0}, f32[128,10]{1,0}, f32[128,10]{1,0}) fusion(f32[128,10]{1,0} %arg10.11, f32[] %fusion.12, f32[128,10]{1,0} %arg13.14, f32[] %arg5.6, f32[128,10]{1,0} %cublas-gemm.13, /*index=5*/f32[128,10]{1,0} %arg14.15, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.1, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+<68 fusion.1{1} @0>
+ positions:
+  fusion.1 {1}
+  get-tuple-element.29
+  tuple.13 {7}
+ uses:
+  tuple.13, operand 7
+ from instruction:%fusion.1 = (f32[128,10]{1,0}, f32[128,10]{1,0}, f32[128,10]{1,0}) fusion(f32[128,10]{1,0} %arg10.11, f32[] %fusion.12, f32[128,10]{1,0} %arg13.14, f32[] %arg5.6, f32[128,10]{1,0} %cublas-gemm.13, /*index=5*/f32[128,10]{1,0} %arg14.15, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.1, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+<69 fusion.1{2} @0>
+ positions:
+  fusion.1 {2}
+  get-tuple-element.30
+  tuple.13 {8}
+ uses:
+  tuple.13, operand 8
+ from instruction:%fusion.1 = (f32[128,10]{1,0}, f32[128,10]{1,0}, f32[128,10]{1,0}) fusion(f32[128,10]{1,0} %arg10.11, f32[] %fusion.12, f32[128,10]{1,0} %arg13.14, f32[] %arg5.6, f32[128,10]{1,0} %cublas-gemm.13, /*index=5*/f32[128,10]{1,0} %arg14.15, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.1, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_2/ResourceApplyAdam"}
+<70 fusion.4{} @0>
+ positions:
+  fusion.4 {}
+ uses:
+  get-tuple-element.25, operand 0 {}
+  get-tuple-element.27, operand 0 {}
+  get-tuple-element.28, operand 0 {}
+ from instruction:%fusion.4 = (f32[10]{0}, f32[10]{0}, f32[10]{0}) fusion(f32[10]{0} %arg9.10, f32[] %fusion.12, f32[10]{0} %arg11.12, f32[] %arg5.6, f32[10]{0} %reduce.156, /*index=5*/f32[10]{0} %arg12.13, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.4, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+<71 fusion.4{0} @0>
+ positions:
+  fusion.4 {0}
+  get-tuple-element.25
+  tuple.13 {3}
+ uses:
+  tuple.13, operand 3
+ from instruction:%fusion.4 = (f32[10]{0}, f32[10]{0}, f32[10]{0}) fusion(f32[10]{0} %arg9.10, f32[] %fusion.12, f32[10]{0} %arg11.12, f32[] %arg5.6, f32[10]{0} %reduce.156, /*index=5*/f32[10]{0} %arg12.13, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.4, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+<72 fusion.4{1} @0>
+ positions:
+  fusion.4 {1}
+  get-tuple-element.27
+  tuple.13 {5}
+ uses:
+  tuple.13, operand 5
+ from instruction:%fusion.4 = (f32[10]{0}, f32[10]{0}, f32[10]{0}) fusion(f32[10]{0} %arg9.10, f32[] %fusion.12, f32[10]{0} %arg11.12, f32[] %arg5.6, f32[10]{0} %reduce.156, /*index=5*/f32[10]{0} %arg12.13, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.4, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+<73 fusion.4{2} @0>
+ positions:
+  fusion.4 {2}
+  get-tuple-element.28
+  tuple.13 {6}
+ uses:
+  tuple.13, operand 6
+ from instruction:%fusion.4 = (f32[10]{0}, f32[10]{0}, f32[10]{0}) fusion(f32[10]{0} %arg9.10, f32[] %fusion.12, f32[10]{0} %arg11.12, f32[] %arg5.6, f32[10]{0} %reduce.156, /*index=5*/f32[10]{0} %arg12.13, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.4, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_3/ResourceApplyAdam"}
+<74 fusion.7{} @0>
+ positions:
+  fusion.7 {}
+ uses:
+  get-tuple-element.24, operand 0 {}
+  get-tuple-element.33, operand 0 {}
+  get-tuple-element.34, operand 0 {}
+ from instruction:%fusion.7 = (f32[784,128]{1,0}, f32[784,128]{1,0}, f32[784,128]{1,0}) fusion(f32[784,128]{1,0} %arg8.9, f32[] %fusion.12, f32[784,128]{1,0} %arg17.18, f32[] %arg5.6, f32[784,128]{1,0} %cublas-gemm.11, /*index=5*/f32[784,128]{1,0} %arg18.19, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.7, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+<75 fusion.7{0} @0>
+ positions:
+  fusion.7 {0}
+  get-tuple-element.24
+  tuple.13 {2}
+ uses:
+  tuple.13, operand 2
+ from instruction:%fusion.7 = (f32[784,128]{1,0}, f32[784,128]{1,0}, f32[784,128]{1,0}) fusion(f32[784,128]{1,0} %arg8.9, f32[] %fusion.12, f32[784,128]{1,0} %arg17.18, f32[] %arg5.6, f32[784,128]{1,0} %cublas-gemm.11, /*index=5*/f32[784,128]{1,0} %arg18.19, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.7, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+<76 fusion.7{1} @0>
+ positions:
+  fusion.7 {1}
+  get-tuple-element.33
+  tuple.13 {11}
+ uses:
+  tuple.13, operand 11
+ from instruction:%fusion.7 = (f32[784,128]{1,0}, f32[784,128]{1,0}, f32[784,128]{1,0}) fusion(f32[784,128]{1,0} %arg8.9, f32[] %fusion.12, f32[784,128]{1,0} %arg17.18, f32[] %arg5.6, f32[784,128]{1,0} %cublas-gemm.11, /*index=5*/f32[784,128]{1,0} %arg18.19, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.7, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+<77 fusion.7{2} @0>
+ positions:
+  fusion.7 {2}
+  get-tuple-element.34
+  tuple.13 {12}
+ uses:
+  tuple.13, operand 12
+ from instruction:%fusion.7 = (f32[784,128]{1,0}, f32[784,128]{1,0}, f32[784,128]{1,0}) fusion(f32[784,128]{1,0} %arg8.9, f32[] %fusion.12, f32[784,128]{1,0} %arg17.18, f32[] %arg5.6, f32[784,128]{1,0} %cublas-gemm.11, /*index=5*/f32[784,128]{1,0} %arg18.19, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.7, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update/ResourceApplyAdam"}
+<78 fusion.10{} @0>
+ positions:
+  fusion.10 {}
+ uses:
+  get-tuple-element.23, operand 0 {}
+  get-tuple-element.35, operand 0 {}
+  get-tuple-element.36, operand 0 {}
+ from instruction:%fusion.10 = (f32[128]{0}, f32[128]{0}, f32[128]{0}) fusion(f32[128]{0} %arg7.8, f32[] %fusion.12, f32[128]{0} %arg19.20, f32[] %arg5.6, f32[128]{0} %get-tuple-element.14, /*index=5*/f32[128]{0} %arg20.21, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.10, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+<79 fusion.10{0} @0>
+ positions:
+  fusion.10 {0}
+  get-tuple-element.23
+  tuple.13 {1}
+ uses:
+  tuple.13, operand 1
+ from instruction:%fusion.10 = (f32[128]{0}, f32[128]{0}, f32[128]{0}) fusion(f32[128]{0} %arg7.8, f32[] %fusion.12, f32[128]{0} %arg19.20, f32[] %arg5.6, f32[128]{0} %get-tuple-element.14, /*index=5*/f32[128]{0} %arg20.21, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.10, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+<80 fusion.10{1} @0>
+ positions:
+  fusion.10 {1}
+  get-tuple-element.35
+  tuple.13 {13}
+ uses:
+  tuple.13, operand 13
+ from instruction:%fusion.10 = (f32[128]{0}, f32[128]{0}, f32[128]{0}) fusion(f32[128]{0} %arg7.8, f32[] %fusion.12, f32[128]{0} %arg19.20, f32[] %arg5.6, f32[128]{0} %get-tuple-element.14, /*index=5*/f32[128]{0} %arg20.21, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.10, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+<81 fusion.10{2} @0>
+ positions:
+  fusion.10 {2}
+  get-tuple-element.36
+  tuple.13 {14}
+ uses:
+  tuple.13, operand 14
+ from instruction:%fusion.10 = (f32[128]{0}, f32[128]{0}, f32[128]{0}) fusion(f32[128]{0} %arg7.8, f32[] %fusion.12, f32[128]{0} %arg19.20, f32[] %arg5.6, f32[128]{0} %get-tuple-element.14, /*index=5*/f32[128]{0} %arg20.21, f32[] %arg6.7), kind=kLoop, calls=%fused_computation.10, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+<82 fusion.12 @0>
+ positions:
+  fusion.12
+ uses:
+  fusion.10, operand 1
+  fusion.7, operand 1
+  fusion.4, operand 1
+  fusion.1, operand 1
+ from instruction:%fusion.12 = f32[] fusion(f32[] %arg5.6, f32[] %arg4.5, f32[] %arg6.7, s64[] %arg3.4), kind=kLoop, calls=%fused_computation.12, metadata={op_type="ResourceApplyAdam" op_name="Adam/Adam/update_1/ResourceApplyAdam"}
+<83 fusion.15 @0>
+ positions:
+  fusion.15
+ uses:
+  reduce.156, operand 0
+  cublas-gemm.9, operand 0
+  cublas-gemm.13, operand 1
+ from instruction:%fusion.15 = f32[32,10]{1,0} fusion(f32[32]{0} %get-tuple-element.17, u8[32]{0} %arg2.3, f32[32,10]{1,0} %cublas-gemm.7, f32[32]{0} %reduce.114), kind=kLoop, calls=%fused_computation.15, metadata={op_type="Mul" op_name="gradient_tape/sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/mul"}
+<84 fusion.18{} @0>
+ positions:
+  fusion.18 {}
+ uses:
+  get-tuple-element.18, operand 0 {}
+  get-tuple-element.19, operand 0 {}
+ from instruction:%fusion.18 = (f32[32,128]{1,0}, pred[32,128]{1,0}) fusion(f32[32,128]{1,0} %cublas-gemm.3, f32[32,128]{1,0} %arg0.1), kind=kLoop, calls=%fused_computation.18, metadata={op_type="Mul" op_name="sequential/dropout/dropout/Mul_1"}
+<85 fusion.18{0} @0>
+ positions:
+  fusion.18 {0}
+  get-tuple-element.18
+ uses:
+  cublas-gemm.7, operand 0
+  cublas-gemm.13, operand 0
+ from instruction:%fusion.18 = (f32[32,128]{1,0}, pred[32,128]{1,0}) fusion(f32[32,128]{1,0} %cublas-gemm.3, f32[32,128]{1,0} %arg0.1), kind=kLoop, calls=%fused_computation.18, metadata={op_type="Mul" op_name="sequential/dropout/dropout/Mul_1"}
+<86 fusion.18{1} @0>
+ positions:
+  fusion.18 {1}
+  get-tuple-element.19
+ uses:
+  input_fusion_reduce.2, operand 0
+ from instruction:%fusion.18 = (f32[32,128]{1,0}, pred[32,128]{1,0}) fusion(f32[32,128]{1,0} %cublas-gemm.3, f32[32,128]{1,0} %arg0.1), kind=kLoop, calls=%fused_computation.18, metadata={op_type="Mul" op_name="sequential/dropout/dropout/Mul_1"}
+<87 input_fusion_reduce.2{} @0>
+ positions:
+  input_fusion_reduce.2 {}
+ uses:
+  get-tuple-element.14, operand 0 {}
+  get-tuple-element.15, operand 0 {}
+ from instruction:%input_fusion_reduce.2 = (f32[128]{0}, f32[32,128]{1,0}) fusion(pred[32,128]{1,0} %get-tuple-element.19, f32[32,128]{1,0} %cublas-gemm.9, f32[32,128]{1,0} %cublas-gemm.3), kind=kInput, calls=%input_fused_computation_reduce.2, metadata={op_type="BiasAddGrad" op_name="gradient_tape/sequential/dense/BiasAdd/BiasAddGrad"}
+<88 input_fusion_reduce.2{0} @0>
+ positions:
+  input_fusion_reduce.2 {0}
+  get-tuple-element.14
+ uses:
+  fusion.10, operand 4
+ from instruction:%input_fusion_reduce.2 = (f32[128]{0}, f32[32,128]{1,0}) fusion(pred[32,128]{1,0} %get-tuple-element.19, f32[32,128]{1,0} %cublas-gemm.9, f32[32,128]{1,0} %cublas-gemm.3), kind=kInput, calls=%input_fused_computation_reduce.2, metadata={op_type="BiasAddGrad" op_name="gradient_tape/sequential/dense/BiasAdd/BiasAddGrad"}
+<89 input_fusion_reduce.2{1} @0>
+ positions:
+  input_fusion_reduce.2 {1}
+  get-tuple-element.15
+ uses:
+  cublas-gemm.11, operand 1
+ from instruction:%input_fusion_reduce.2 = (f32[128]{0}, f32[32,128]{1,0}) fusion(pred[32,128]{1,0} %get-tuple-element.19, f32[32,128]{1,0} %cublas-gemm.9, f32[32,128]{1,0} %cublas-gemm.3), kind=kInput, calls=%input_fused_computation_reduce.2, metadata={op_type="BiasAddGrad" op_name="gradient_tape/sequential/dense/BiasAdd/BiasAddGrad"}
+<90 fusion.22{} @0>
+ positions:
+  fusion.22 {}
+ uses:
+  get-tuple-element.16, operand 0 {}
+  get-tuple-element.17, operand 0 {}
+ from instruction:%fusion.22 = (f32[32]{0}, f32[32]{0}) fusion(f32[32,10]{1,0} %cublas-gemm.7, f32[32]{0} %reduce.114), kind=kLoop, calls=%fused_computation.22, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+<91 fusion.22{0} @0>
+ positions:
+  fusion.22 {0}
+  get-tuple-element.16
+ uses:
+  input_fusion_reduce.1, operand 0
+ from instruction:%fusion.22 = (f32[32]{0}, f32[32]{0}) fusion(f32[32,10]{1,0} %cublas-gemm.7, f32[32]{0} %reduce.114), kind=kLoop, calls=%fused_computation.22, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+<92 fusion.22{1} @0>
+ positions:
+  fusion.22 {1}
+  get-tuple-element.17
+ uses:
+  fusion.15, operand 0
+ from instruction:%fusion.22 = (f32[32]{0}, f32[32]{0}) fusion(f32[32,10]{1,0} %cublas-gemm.7, f32[32]{0} %reduce.114), kind=kLoop, calls=%fused_computation.22, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+<93 fusion.25{} @0>
+ positions:
+  fusion.25 {}
+ uses:
+  get-tuple-element.20, operand 0 {}
+  get-tuple-element.21, operand 0 {}
+ from instruction:%fusion.25 = (f32[1]{0}, f32[1]{0}) fusion(f32[] %arg15.16, f32[] %input_fusion_reduce.1, f32[] %arg16.17, f32[] %input_fusion_reduce), kind=kInput, calls=%horizontally_fused_computation
+<94 fusion.25{0} @0>
+ positions:
+  fusion.25 {0}
+  get-tuple-element.20
+  bitcast.3
+  tuple.13 {9}
+ uses:
+  bitcast.3, operand 0
+  tuple.13, operand 9
+ from instruction:%fusion.25 = (f32[1]{0}, f32[1]{0}) fusion(f32[] %arg15.16, f32[] %input_fusion_reduce.1, f32[] %arg16.17, f32[] %input_fusion_reduce), kind=kInput, calls=%horizontally_fused_computation
+<95 fusion.25{1} @0>
+ positions:
+  fusion.25 {1}
+  get-tuple-element.21
+  bitcast.4
+  tuple.13 {10}
+ uses:
+  bitcast.4, operand 0
+  tuple.13, operand 10
+ from instruction:%fusion.25 = (f32[1]{0}, f32[1]{0}) fusion(f32[] %arg15.16, f32[] %input_fusion_reduce.1, f32[] %arg16.17, f32[] %input_fusion_reduce), kind=kInput, calls=%horizontally_fused_computation
+<96 copy @0>
+ positions:
+  copy
+  tuple.13 {0}
+ uses:
+  tuple.13, operand 0
+ from instruction:%copy = f32[] copy(f32[] %constant_306)
+<97 tuple.13{} @0>
+ positions:
+  tuple.13 {}
+ uses:
+ from instruction:%tuple.13 = (f32[], f32[128]{0}, f32[784,128]{1,0}, f32[10]{0}, f32[128,10]{1,0}, /*index=5*/f32[10]{0}, f32[10]{0}, f32[128,10]{1,0}, f32[128,10]{1,0}, f32[], /*index=10*/f32[], f32[784,128]{1,0}, f32[784,128]{1,0}, f32[128]{0}, f32[128]{0}) tuple(f32[] %copy, f32[128]{0} %get-tuple-element.23, f32[784,128]{1,0} %get-tuple-element.24, f32[10]{0} %get-tuple-element.25, f32[128,10]{1,0} %get-tuple-element.26, /*index=5*/f32[10]{0} %get-tuple-element.27, f32[10]{0} %get-tuple-element.28, f32[128,10]{1,0} %get-tuple-element.29, f32[128,10]{1,0} %get-tuple-element.30, f32[] %bitcast.3, /*index=10*/f32[] %bitcast.4, f32[784,128]{1,0} %get-tuple-element.33, f32[784,128]{1,0} %get-tuple-element.34, f32[128]{0} %get-tuple-element.35, f32[128]{0} %get-tuple-element.36)
+
+
+HloLiveRange (max 74):
+  InstructionSequence:
+    0:constant_306
+    1:copy
+    2:constant_151
+    3:constant_61
+    4:constant_60
+    5:arg16.17
+    6:arg15.16
+    7:arg6.7
+    8:arg5.6
+    9:arg4.5
+    10:arg3.4
+    11:fusion.12
+    12:arg10.11
+    13:arg2.3
+    14:arg9.10
+    15:arg8.9
+    16:arg7.8
+    17:arg20.21
+    18:arg19.20
+    19:arg18.19
+    20:arg17.18
+    21:arg14.15
+    22:arg13.14
+    23:arg12.13
+    24:arg11.12
+    25:arg1.2
+    26:bitcast.1
+    27:arg0.1
+    28:broadcast.57
+    29:iota.62
+    30:broadcast.40
+    31:cublas-gemm.3
+    32:fusion.18
+    33:get-tuple-element.18
+    34:get-tuple-element.19
+    35:cublas-gemm.7
+    36:reduce.75
+    37:get-tuple-element.76
+    38:input_fusion_reduce
+    39:reduce.114
+    40:fusion.22
+    41:get-tuple-element.17
+    42:get-tuple-element.16
+    43:input_fusion_reduce.1
+    44:fusion.15
+    45:cublas-gemm.13
+    46:fusion.25
+    47:get-tuple-element.21
+    48:bitcast.4
+    49:get-tuple-element.20
+    50:bitcast.3
+    51:reduce.156
+    52:fusion.4
+    53:get-tuple-element.28
+    54:get-tuple-element.27
+    55:get-tuple-element.25
+    56:fusion.1
+    57:get-tuple-element.30
+    58:get-tuple-element.29
+    59:get-tuple-element.26
+    60:cublas-gemm.9
+    61:input_fusion_reduce.2
+    62:get-tuple-element.15
+    63:get-tuple-element.14
+    64:fusion.10
+    65:get-tuple-element.36
+    66:get-tuple-element.35
+    67:get-tuple-element.23
+    68:cublas-gemm.11
+    69:fusion.7
+    70:get-tuple-element.34
+    71:get-tuple-element.33
+    72:get-tuple-element.24
+    73:tuple.13
+  BufferLiveRange:
+    arg0.1{}:0-74
+    arg1.2{}:0-74
+    arg2.3{}:0-74
+    arg3.4{}:0-74
+    arg4.5{}:0-74
+    arg5.6{}:0-74
+    arg6.7{}:0-74
+    arg7.8{}:0-74
+    arg8.9{}:0-74
+    arg9.10{}:0-74
+    arg10.11{}:0-74
+    arg11.12{}:0-74
+    arg12.13{}:0-74
+    arg13.14{}:0-74
+    arg14.15{}:0-74
+    arg15.16{}:0-74
+    arg16.17{}:0-74
+    arg17.18{}:0-74
+    arg18.19{}:0-74
+    arg19.20{}:0-74
+    arg20.21{}:0-74
+    broadcast.40{}:30-31
+    broadcast.57{}:28-35
+    constant_60{}:4-39
+    constant_61{}:3-36
+    iota.62{}:29-36
+    reduce.114{}:39-44
+    constant_151{}:2-51
+    reduce.156{}:51-52
+    constant_306{}:0-1
+    reduce.75{}:36-37
+    reduce.75{0}:36-36
+    reduce.75{1}:36-38
+    cublas-gemm.3{}:31-61
+    cublas-gemm.7{}:35-44
+    cublas-gemm.9{}:60-61
+    cublas-gemm.11{}:68-69
+    cublas-gemm.13{}:45-56
+    input_fusion_reduce{}:38-46
+    input_fusion_reduce.1{}:43-46
+    fusion.1{}:56-59
+    fusion.1{0}:56-74
+    fusion.1{1}:56-74
+    fusion.1{2}:56-74
+    fusion.4{}:52-55
+    fusion.4{0}:52-74
+    fusion.4{1}:52-74
+    fusion.4{2}:52-74
+    fusion.7{}:69-72
+    fusion.7{0}:69-74
+    fusion.7{1}:69-74
+    fusion.7{2}:69-74
+    fusion.10{}:64-67
+    fusion.10{0}:64-74
+    fusion.10{1}:64-74
+    fusion.10{2}:64-74
+    fusion.12{}:11-69
+    fusion.15{}:44-60
+    fusion.18{}:32-34
+    fusion.18{0}:32-45
+    fusion.18{1}:32-61
+    input_fusion_reduce.2{}:61-63
+    input_fusion_reduce.2{0}:61-64
+    input_fusion_reduce.2{1}:61-68
+    fusion.22{}:40-42
+    fusion.22{0}:40-43
+    fusion.22{1}:40-44
+    fusion.25{}:46-49
+    fusion.25{0}:46-74
+    fusion.25{1}:46-74
+    copy{}:1-74
+    tuple.13{}:73-74
+  Live ranges at 69 (peak):
+    arg0.1: 16384 bytes
+    arg1.2: 100352 bytes
+    arg2.3: 32 bytes
+    arg3.4: 8 bytes
+    arg4.5: 4 bytes
+    arg5.6: 4 bytes
+    arg6.7: 4 bytes
+    arg7.8: 512 bytes
+    arg8.9: 401408 bytes
+    arg9.10: 40 bytes
+    arg10.11: 5120 bytes
+    arg11.12: 40 bytes
+    arg12.13: 40 bytes
+    arg13.14: 5120 bytes
+    arg14.15: 5120 bytes
+    arg15.16: 4 bytes
+    arg16.17: 4 bytes
+    arg17.18: 401408 bytes
+    arg18.19: 401408 bytes
+    arg19.20: 512 bytes
+    arg20.21: 512 bytes
+    cublas-gemm.11: 401408 bytes
+    fusion.1: 24 bytes
+    fusion.1: 24 bytes
+    fusion.1: 24 bytes
+    fusion.4: 24 bytes
+    fusion.4: 24 bytes
+    fusion.4: 24 bytes
+    fusion.7: 24 bytes
+    fusion.7: 24 bytes
+    fusion.7: 24 bytes
+    fusion.7: 24 bytes
+    fusion.10: 24 bytes
+    fusion.10: 24 bytes
+    fusion.10: 24 bytes
+    fusion.12: 4 bytes
+    fusion.25: 16 bytes
+    fusion.25: 16 bytes
+    copy: 4 bytes

@@ -1,0 +1,34 @@
+HloModule cluster_1__XlaCompiledKernel_true__XlaHasReferenceVars_false__XlaNumConstantArgs_0__XlaNumResourceArgs_6_.30, alias_passthrough_params=true
+
+ENTRY cluster_1__XlaCompiledKernel_true__XlaHasReferenceVars_false__XlaNumConstantArgs_0__XlaNumResourceArgs_6_.30 {
+  arg3.4 = f32[] parameter(3), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  constant.9 = f32[] constant(0), metadata={op_type="DivNoNan" op_name="div_no_nan_1"}
+  compare.10 = pred[] compare(arg3.4, constant.9), direction=EQ, metadata={op_type="DivNoNan" op_name="div_no_nan_1"}
+  constant.11 = f32[] constant(0), metadata={op_type="DivNoNan" op_name="div_no_nan_1"}
+  broadcast.12 = f32[] broadcast(constant.11), dimensions={}, metadata={op_type="DivNoNan" op_name="div_no_nan_1"}
+  arg2.3 = f32[] parameter(2), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  divide.13 = f32[] divide(arg2.3, arg3.4), metadata={op_type="DivNoNan" op_name="div_no_nan_1"}
+  select.14 = f32[] select(compare.10, broadcast.12, divide.13), metadata={op_type="DivNoNan" op_name="div_no_nan_1"}
+  reshape.23 = f32[] reshape(select.14), metadata={op_name="XLA_Retvals"}
+  arg1.2 = f32[] parameter(1), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  constant.17 = f32[] constant(0), metadata={op_type="DivNoNan" op_name="div_no_nan"}
+  compare.18 = pred[] compare(arg1.2, constant.17), direction=EQ, metadata={op_type="DivNoNan" op_name="div_no_nan"}
+  constant.19 = f32[] constant(0), metadata={op_type="DivNoNan" op_name="div_no_nan"}
+  broadcast.20 = f32[] broadcast(constant.19), dimensions={}, metadata={op_type="DivNoNan" op_name="div_no_nan"}
+  arg0.1 = f32[] parameter(0), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  divide.21 = f32[] divide(arg0.1, arg1.2), metadata={op_type="DivNoNan" op_name="div_no_nan"}
+  select.22 = f32[] select(compare.18, broadcast.20, divide.21), metadata={op_type="DivNoNan" op_name="div_no_nan"}
+  reshape.24 = f32[] reshape(select.22), metadata={op_name="XLA_Retvals"}
+  arg4.5 = s64[] parameter(4), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  constant.7 = s64[] constant(1), metadata={op_type="AssignAddVariableOp" op_name="Adam/Adam/AssignAddVariableOp"}
+  add.8 = s64[] add(arg4.5, constant.7), metadata={op_type="AssignAddVariableOp" op_name="Adam/Adam/AssignAddVariableOp"}
+  reshape.25 = s64[] reshape(add.8), metadata={op_name="XLA_Retvals"}
+  copy.26 = s64[] copy(reshape.25), metadata={op_name="XLA_Retvals"}
+  arg5.6 = s64[] parameter(5), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  constant.15 = s64[] constant(1), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp_4"}
+  add.16 = s64[] add(arg5.6, constant.15), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp_4"}
+  reshape.27 = s64[] reshape(add.16), metadata={op_name="XLA_Retvals"}
+  copy.28 = s64[] copy(reshape.27), metadata={op_name="XLA_Retvals"}
+  ROOT tuple.29 = (f32[], f32[], s64[], s64[]) tuple(reshape.23, reshape.24, copy.26, copy.28), metadata={op_name="XLA_Retvals"}
+}
+

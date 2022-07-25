@@ -1,0 +1,58 @@
+HloModule cluster_1__XlaCompiledKernel_true__XlaHasReferenceVars_false__XlaNumConstantArgs_0__XlaNumResourceArgs_6_.30, alias_passthrough_params=true
+
+horizontally_fused_computation {
+  param_0_0 = s64[] parameter(0)
+  param_0_1 = s64[] parameter(1)
+  add.2 = s64[] add(param_0_0, param_0_1), metadata={op_type="AssignAddVariableOp" op_name="Adam/Adam/AssignAddVariableOp"}
+  reshape.2 = s64[1]{0} reshape(add.2), metadata={op_type="AssignAddVariableOp" op_name="Adam/Adam/AssignAddVariableOp"}
+  param_1_0 = s64[] parameter(2)
+  param_1_1 = s64[] parameter(3)
+  add.3 = s64[] add(param_1_0, param_1_1), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp_4"}
+  reshape.3 = s64[1]{0} reshape(add.3), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp_4"}
+  concatenate = s64[2]{0} concatenate(reshape.2, reshape.3), dimensions={0}
+  slice = s64[1]{0} slice(concatenate), slice={[0:1]}
+  slice.1 = s64[1]{0} slice(concatenate), slice={[1:2]}
+  ROOT tuple = (s64[1]{0}, s64[1]{0}) tuple(slice, slice.1)
+}
+
+horizontally_fused_computation.1 {
+  param_0_1.1 = f32[] parameter(1)
+  constant_4 = f32[] constant(0), metadata={op_type="DivNoNan" op_name="div_no_nan_1"}
+  compare.2 = pred[] compare(param_0_1.1, constant_4), direction=EQ, metadata={op_type="DivNoNan" op_name="div_no_nan_1"}
+  param_0_0.1 = f32[] parameter(0)
+  divide.2 = f32[] divide(param_0_0.1, param_0_1.1), metadata={op_type="DivNoNan" op_name="div_no_nan_1"}
+  select.2 = f32[] select(compare.2, constant_4, divide.2), metadata={op_type="DivNoNan" op_name="div_no_nan_1"}
+  reshape.4 = f32[1]{0} reshape(select.2), metadata={op_type="DivNoNan" op_name="div_no_nan_1"}
+  param_1_1.1 = f32[] parameter(3)
+  compare.3 = pred[] compare(param_1_1.1, constant_4), direction=EQ, metadata={op_type="DivNoNan" op_name="div_no_nan"}
+  param_1_0.1 = f32[] parameter(2)
+  divide.3 = f32[] divide(param_1_0.1, param_1_1.1), metadata={op_type="DivNoNan" op_name="div_no_nan"}
+  select.3 = f32[] select(compare.3, constant_4, divide.3), metadata={op_type="DivNoNan" op_name="div_no_nan"}
+  reshape.5 = f32[1]{0} reshape(select.3), metadata={op_type="DivNoNan" op_name="div_no_nan"}
+  concatenate.1 = f32[2]{0} concatenate(reshape.4, reshape.5), dimensions={0}
+  slice.2 = f32[1]{0} slice(concatenate.1), slice={[0:1]}
+  slice.3 = f32[1]{0} slice(concatenate.1), slice={[1:2]}
+  ROOT tuple.1 = (f32[1]{0}, f32[1]{0}) tuple(slice.2, slice.3)
+}
+
+ENTRY cluster_1__XlaCompiledKernel_true__XlaHasReferenceVars_false__XlaNumConstantArgs_0__XlaNumResourceArgs_6_.30 {
+  arg2.3 = f32[] parameter(2), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  arg3.4 = f32[] parameter(3), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  arg0.1 = f32[] parameter(0), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  arg1.2 = f32[] parameter(1), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  fusion.5 = (f32[1]{0}, f32[1]{0}) fusion(arg2.3, arg3.4, arg0.1, arg1.2), kind=kInput, calls=horizontally_fused_computation.1
+  get-tuple-element.2 = f32[1]{0} get-tuple-element(fusion.5), index=0
+  bitcast.2 = f32[] bitcast(get-tuple-element.2), metadata={op_type="DivNoNan" op_name="div_no_nan_1"}
+  get-tuple-element.3 = f32[1]{0} get-tuple-element(fusion.5), index=1
+  bitcast.3 = f32[] bitcast(get-tuple-element.3), metadata={op_type="DivNoNan" op_name="div_no_nan"}
+  arg4.5 = s64[] parameter(4), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  constant_7 = s64[] constant(1), metadata={op_type="AssignAddVariableOp" op_name="Adam/Adam/AssignAddVariableOp"}
+  arg5.6 = s64[] parameter(5), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  fusion.4 = (s64[1]{0}, s64[1]{0}) fusion(arg4.5, constant_7, arg5.6, constant_7), kind=kInput, calls=horizontally_fused_computation
+  get-tuple-element = s64[1]{0} get-tuple-element(fusion.4), index=0
+  bitcast = s64[] bitcast(get-tuple-element), metadata={op_type="AssignAddVariableOp" op_name="Adam/Adam/AssignAddVariableOp"}
+  get-tuple-element.1 = s64[1]{0} get-tuple-element(fusion.4), index=1
+  bitcast.1 = s64[] bitcast(get-tuple-element.1), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp_4"}
+  ROOT tuple.29 = (f32[], f32[], s64[], s64[]) tuple(bitcast.2, bitcast.3, bitcast, bitcast.1), metadata={op_name="XLA_Retvals"}
+}
+

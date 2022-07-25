@@ -1,0 +1,190 @@
+HloModule cluster_2__XlaCompiledKernel_true__XlaHasReferenceVars_false__XlaNumConstantArgs_0__XlaNumResourceArgs_6_.174, alias_passthrough_params=true
+
+minmax_func.35 {
+  lhs_value.36 = f32[] parameter(0)
+  rhs_value.38 = f32[] parameter(2)
+  compare.40 = pred[] compare(lhs_value.36, rhs_value.38), direction=GE
+  select.41 = f32[] select(compare.40, lhs_value.36, rhs_value.38)
+  compare.43 = pred[] compare(lhs_value.36, rhs_value.38), direction=EQ
+  lhs_index.37 = s32[] parameter(1)
+  rhs_index.39 = s32[] parameter(3)
+  minimum.44 = s32[] minimum(lhs_index.37, rhs_index.39)
+  select.42 = s32[] select(compare.40, lhs_index.37, rhs_index.39)
+  select.45 = s32[] select(compare.43, minimum.44, select.42)
+  ROOT tuple.46 = (f32[], s32[]) tuple(select.41, select.45)
+}
+
+Sum_2-reduction.66 {
+  x.67 = f32[] parameter(0)
+  y.68 = f32[] parameter(1)
+  ROOT add.69 = f32[] add(x.67, y.68)
+}
+
+max_float_.106 {
+  x.107 = f32[] parameter(0)
+  y.108 = f32[] parameter(1)
+  ROOT maximum.109 = f32[] maximum(x.107, y.108)
+}
+
+add_float_.116 {
+  x.117 = f32[] parameter(0)
+  y.118 = f32[] parameter(1)
+  ROOT add.119 = f32[] add(x.117, y.118)
+}
+
+add_float_.135 {
+  x.136 = f32[] parameter(0)
+  y.137 = f32[] parameter(1)
+  ROOT add.138 = f32[] add(x.136, y.137)
+}
+
+sparse_categorical_crossentropy_weighted_loss_Sum-reduction.147 {
+  x.148 = f32[] parameter(0)
+  y.149 = f32[] parameter(1)
+  ROOT add.150 = f32[] add(x.148, y.149)
+}
+
+ENTRY cluster_2__XlaCompiledKernel_true__XlaHasReferenceVars_false__XlaNumConstantArgs_0__XlaNumResourceArgs_6_.174 {
+  constant.11 = s32[2]{0} constant({-1, 784}), metadata={op_type="Reshape" op_name="sequential/flatten/Reshape"}
+  constant.31 = s32[] constant(-1), metadata={op_type="ArgMax" op_name="ArgMax"}
+  arg1.2 = u8[32]{0} parameter(1), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  reshape.10 = u8[32]{0} reshape(arg1.2)
+  reshape.51 = u8[32,1]{1,0} reshape(reshape.10), metadata={op_type="ExpandDims" op_name="ExpandDims"}
+  convert.55 = f32[32,1]{1,0} convert(reshape.51), metadata={op_type="Cast" op_name="Cast_1"}
+  constant.56 = s32[2]{0} constant({32, 1}), metadata={op_type="Reshape" op_name="ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_bool_Reshape"}
+  constant.60 = s32[1]{0} constant({-1}), metadata={op_type="Reshape" op_name="sparse_categorical_crossentropy/ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_uint8_Reshape"}
+  constant.73 = s32[1]{0} constant({-1}), metadata={op_type="StridedSlice" op_name="sparse_categorical_crossentropy/strided_slice"}
+  constant.74 = s32[1]{0} constant({0}), metadata={op_type="StridedSlice" op_name="sparse_categorical_crossentropy/strided_slice"}
+  constant.75 = s32[1]{0} constant({1}), metadata={op_type="StridedSlice" op_name="sparse_categorical_crossentropy/strided_slice"}
+  constant.78 = s32[] constant(-1), metadata={op_type="Pack" op_name="sparse_categorical_crossentropy/Reshape_1/shape"}
+  reshape.79 = s32[1]{0} reshape(constant.78), metadata={op_type="Pack" op_name="sparse_categorical_crossentropy/Reshape_1/shape"}
+  constant.24 = s32[] constant(32), metadata={op_type="Shape" op_name="sparse_categorical_crossentropy/Shape"}
+  convert.25 = s32[] convert(constant.24), metadata={op_type="Shape" op_name="sparse_categorical_crossentropy/Shape"}
+  broadcast.26 = s32[1]{0} broadcast(convert.25), dimensions={}, metadata={op_type="Shape" op_name="sparse_categorical_crossentropy/Shape"}
+  constant.27 = s32[] constant(10), metadata={op_type="Shape" op_name="sparse_categorical_crossentropy/Shape"}
+  convert.28 = s32[] convert(constant.27), metadata={op_type="Shape" op_name="sparse_categorical_crossentropy/Shape"}
+  broadcast.29 = s32[1]{0} broadcast(convert.28), dimensions={}, metadata={op_type="Shape" op_name="sparse_categorical_crossentropy/Shape"}
+  concatenate.30 = s32[2]{0} concatenate(broadcast.26, broadcast.29), dimensions={0}, metadata={op_type="Shape" op_name="sparse_categorical_crossentropy/Shape"}
+  slice.76 = s32[1]{0} slice(concatenate.30), slice={[1:2]}, metadata={op_type="StridedSlice" op_name="sparse_categorical_crossentropy/strided_slice"}
+  reshape.77 = s32[] reshape(slice.76), metadata={op_type="StridedSlice" op_name="sparse_categorical_crossentropy/strided_slice"}
+  reshape.80 = s32[1]{0} reshape(reshape.77), metadata={op_type="Pack" op_name="sparse_categorical_crossentropy/Reshape_1/shape"}
+  concatenate.81 = s32[2]{0} concatenate(reshape.79, reshape.80), dimensions={0}, metadata={op_type="Pack" op_name="sparse_categorical_crossentropy/Reshape_1/shape"}
+  arg0.1 = f32[32,28,28]{2,1,0} parameter(0), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  reshape.9 = f32[32,28,28]{2,1,0} reshape(arg0.1)
+  reshape.12 = f32[32,784]{1,0} reshape(reshape.9), metadata={op_type="Reshape" op_name="sequential/flatten/Reshape"}
+  arg3.4 = f32[784,128]{1,0} parameter(3), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  dot.13 = f32[32,128]{1,0} dot(reshape.12, arg3.4), lhs_contracting_dims={1}, rhs_contracting_dims={0}, metadata={op_type="MatMul" op_name="sequential/dense/MatMul"}
+  transpose.14 = f32[32,128]{1,0} transpose(dot.13), dimensions={0,1}, metadata={op_type="MatMul" op_name="sequential/dense/MatMul"}
+  arg2.3 = f32[128]{0} parameter(2), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  broadcast.15 = f32[32,128]{1,0} broadcast(arg2.3), dimensions={1}, metadata={op_type="BiasAdd" op_name="sequential/dense/BiasAdd"}
+  add.16 = f32[32,128]{1,0} add(transpose.14, broadcast.15), metadata={op_type="BiasAdd" op_name="sequential/dense/BiasAdd"}
+  constant.17 = f32[] constant(0), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  broadcast.18 = f32[32,128]{1,0} broadcast(constant.17), dimensions={}, metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  maximum.19 = f32[32,128]{1,0} maximum(add.16, broadcast.18), metadata={op_type="Relu" op_name="sequential/dense/Relu"}
+  arg5.6 = f32[128,10]{1,0} parameter(5), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  dot.20 = f32[32,10]{1,0} dot(maximum.19, arg5.6), lhs_contracting_dims={1}, rhs_contracting_dims={0}, metadata={op_type="MatMul" op_name="sequential/dense_1/MatMul"}
+  transpose.21 = f32[32,10]{1,0} transpose(dot.20), dimensions={0,1}, metadata={op_type="MatMul" op_name="sequential/dense_1/MatMul"}
+  arg4.5 = f32[10]{0} parameter(4), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  broadcast.22 = f32[32,10]{1,0} broadcast(arg4.5), dimensions={1}, metadata={op_type="BiasAdd" op_name="sequential/dense_1/BiasAdd"}
+  add.23 = f32[32,10]{1,0} add(transpose.21, broadcast.22), metadata={op_type="BiasAdd" op_name="sequential/dense_1/BiasAdd"}
+  reshape.82 = f32[32,10]{1,0} reshape(add.23), metadata={op_type="Reshape" op_name="sparse_categorical_crossentropy/Reshape_1"}
+  constant.105 = f32[] constant(-inf), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  reduce.110 = f32[32]{0} reduce(reshape.82, constant.105), dimensions={1}, to_apply=max_float_.106, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.111 = f32[32,10]{1,0} broadcast(reduce.110), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  subtract.112 = f32[32,10]{1,0} subtract(reshape.82, broadcast.111), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  exponential.113 = f32[32,10]{1,0} exponential(subtract.112), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  convert.114 = f32[32,10]{1,0} convert(exponential.113), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant.115 = f32[] constant(0), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  reduce.120 = f32[32]{0} reduce(convert.114, constant.115), dimensions={1}, to_apply=add_float_.116, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  convert.121 = f32[32]{0} convert(reduce.120), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.141 = f32[32,10]{1,0} broadcast(convert.121), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  divide.142 = f32[32,10]{1,0} divide(exponential.113, broadcast.141), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  reshape.61 = u8[32]{0} reshape(reshape.51), metadata={op_type="Reshape" op_name="sparse_categorical_crossentropy/ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_uint8_Reshape"}
+  convert.62 = s64[32]{0} convert(reshape.61), metadata={op_type="Cast" op_name="sparse_categorical_crossentropy/ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_int64_Cast"}
+  broadcast.88 = s64[32,10]{1,0} broadcast(convert.62), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  iota.87 = s64[32,10]{1,0} iota(), iota_dimension=1, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.89 = pred[32,10]{1,0} compare(broadcast.88, iota.87), direction=EQ, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant.84 = f32[] constant(1), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.86 = f32[32,10]{1,0} broadcast(constant.84), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant.83 = f32[] constant(0), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.85 = f32[32,10]{1,0} broadcast(constant.83), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  select.90 = f32[32,10]{1,0} select(compare.89, broadcast.86, broadcast.85), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant.98 = s64[] constant(0), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.99 = s64[32]{0} broadcast(constant.98), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.100 = pred[32]{0} compare(broadcast.99, convert.62), direction=LE, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant.95 = s64[] constant(10), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.96 = s64[32]{0} broadcast(constant.95), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.97 = pred[32]{0} compare(convert.62, broadcast.96), direction=LT, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  and.101 = pred[32]{0} and(compare.100, compare.97), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant.93 = f32[] constant(0), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.94 = f32[32]{0} broadcast(constant.93), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant.91 = f32[] constant(nan), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.92 = f32[32]{0} broadcast(constant.91), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  select.102 = f32[32]{0} select(and.101, broadcast.94, broadcast.92), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.103 = f32[32,10]{1,0} broadcast(select.102), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  add.104 = f32[32,10]{1,0} add(select.90, broadcast.103), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  subtract.143 = f32[32,10]{1,0} subtract(divide.142, add.104), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant.153 = f32[] constant(32), metadata={op_type="DivNoNan" op_name="sparse_categorical_crossentropy/weighted_loss/value"}
+  constant.161 = f32[] constant(32), metadata={op_type="Mul" op_name="Mul"}
+  constant.165 = s32[] constant(32)
+  reshape.167 = s32[] reshape(constant.165), metadata={op_name="XLA_Retvals"}
+  constant.166 = f32[] constant(32)
+  reshape.168 = f32[] reshape(constant.166), metadata={op_name="XLA_Retvals"}
+  arg6.7 = f32[] parameter(6), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  reshape.52 = u8[32]{0} reshape(reshape.51), metadata={op_type="Squeeze" op_name="ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_uint8_Squeeze"}
+  convert.53 = f32[32]{0} convert(reshape.52), metadata={op_type="Cast" op_name="ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_float_Cast_1"}
+  iota.34 = s32[32,10]{1,0} iota(), iota_dimension=1, metadata={op_type="ArgMax" op_name="ArgMax"}
+  constant.32 = f32[] constant(-inf), metadata={op_type="ArgMax" op_name="ArgMax"}
+  constant.33 = s32[] constant(0), metadata={op_type="ArgMax" op_name="ArgMax"}
+  reduce.47 = (f32[32]{0}, s32[32]{0}) reduce(add.23, iota.34, constant.32, constant.33), dimensions={1}, to_apply=minmax_func.35, metadata={op_type="ArgMax" op_name="ArgMax"}
+  get-tuple-element.48 = s32[32]{0} get-tuple-element(reduce.47), index=1, metadata={op_type="ArgMax" op_name="ArgMax"}
+  convert.49 = s64[32]{0} convert(get-tuple-element.48), metadata={op_type="ArgMax" op_name="ArgMax"}
+  convert.50 = f32[32]{0} convert(convert.49), metadata={op_type="Cast" op_name="Cast_2"}
+  compare.54 = pred[32]{0} compare(convert.53, convert.50), direction=EQ, metadata={op_type="Equal" op_name="Equal"}
+  reshape.57 = pred[32,1]{1,0} reshape(compare.54), metadata={op_type="Reshape" op_name="ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_bool_Reshape"}
+  reshape.58 = pred[32]{0} reshape(reshape.57), metadata={op_type="Squeeze" op_name="ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_bool_Squeeze_1"}
+  convert.59 = f32[32]{0} convert(reshape.58), metadata={op_type="Cast" op_name="ArithmeticOptimizer/ArithmeticOptimizer/ReorderCastLikeAndValuePreserving_float_ReorderCastLikeAndValuePreserving_float_Cast_3"}
+  convert.63 = f32[32]{0} convert(convert.59), metadata={op_type="Sum" op_name="Sum_2"}
+  constant.64 = f32[] constant(0), metadata={op_type="Sum" op_name="Sum_2"}
+  convert.65 = f32[] convert(constant.64), metadata={op_type="Sum" op_name="Sum_2"}
+  reduce.70 = f32[] reduce(convert.63, convert.65), dimensions={0}, to_apply=Sum_2-reduction.66, metadata={op_type="Sum" op_name="Sum_2"}
+  convert.71 = f32[] convert(reduce.70), metadata={op_type="Sum" op_name="Sum_2"}
+  add.72 = f32[] add(arg6.7, convert.71), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp_2"}
+  reshape.169 = f32[] reshape(add.72), metadata={op_name="XLA_Retvals"}
+  copy.170 = f32[] copy(reshape.169), metadata={op_name="XLA_Retvals"}
+  arg7.8 = f32[] parameter(7), parameter_replication={false}, metadata={op_name="XLA_Args"}
+  constant.162 = f32[] constant(32), metadata={op_type="Mul" op_name="Mul"}
+  constant.154 = f32[] constant(32), metadata={op_type="DivNoNan" op_name="sparse_categorical_crossentropy/weighted_loss/value"}
+  constant.155 = f32[] constant(0), metadata={op_type="DivNoNan" op_name="sparse_categorical_crossentropy/weighted_loss/value"}
+  compare.156 = pred[] compare(constant.154, constant.155), direction=EQ, metadata={op_type="DivNoNan" op_name="sparse_categorical_crossentropy/weighted_loss/value"}
+  constant.157 = f32[] constant(0), metadata={op_type="DivNoNan" op_name="sparse_categorical_crossentropy/weighted_loss/value"}
+  broadcast.158 = f32[] broadcast(constant.157), dimensions={}, metadata={op_type="DivNoNan" op_name="sparse_categorical_crossentropy/weighted_loss/value"}
+  negate.131 = f32[32,10]{1,0} negate(add.104), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant.127 = f32[] constant(0), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.128 = f32[32,10]{1,0} broadcast(constant.127), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  compare.129 = pred[32,10]{1,0} compare(add.104, broadcast.128), direction=EQ, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant.125 = f32[] constant(0), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.126 = f32[32,10]{1,0} broadcast(constant.125), dimensions={}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  log.122 = f32[32]{0} log(convert.121), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  broadcast.123 = f32[32,10]{1,0} broadcast(log.122), dimensions={0}, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  subtract.124 = f32[32,10]{1,0} subtract(subtract.112, broadcast.123), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  select.130 = f32[32,10]{1,0} select(compare.129, broadcast.126, subtract.124), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  multiply.132 = f32[32,10]{1,0} multiply(negate.131, select.130), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  convert.134 = f32[32,10]{1,0} convert(multiply.132), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  constant.133 = f32[] constant(0), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  reduce.139 = f32[32]{0} reduce(convert.134, constant.133), dimensions={1}, to_apply=add_float_.135, metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  convert.140 = f32[32]{0} convert(reduce.139), metadata={op_type="SparseSoftmaxCrossEntropyWithLogits" op_name="sparse_categorical_crossentropy/SparseSoftmaxCrossEntropyWithLogits/SparseSoftmaxCrossEntropyWithLogits"}
+  convert.144 = f32[32]{0} convert(convert.140), metadata={op_type="Sum" op_name="sparse_categorical_crossentropy/weighted_loss/Sum"}
+  constant.145 = f32[] constant(0), metadata={op_type="Sum" op_name="sparse_categorical_crossentropy/weighted_loss/Sum"}
+  convert.146 = f32[] convert(constant.145), metadata={op_type="Sum" op_name="sparse_categorical_crossentropy/weighted_loss/Sum"}
+  reduce.151 = f32[] reduce(convert.144, convert.146), dimensions={0}, to_apply=sparse_categorical_crossentropy_weighted_loss_Sum-reduction.147, metadata={op_type="Sum" op_name="sparse_categorical_crossentropy/weighted_loss/Sum"}
+  convert.152 = f32[] convert(reduce.151), metadata={op_type="Sum" op_name="sparse_categorical_crossentropy/weighted_loss/Sum"}
+  divide.159 = f32[] divide(convert.152, constant.154), metadata={op_type="DivNoNan" op_name="sparse_categorical_crossentropy/weighted_loss/value"}
+  select.160 = f32[] select(compare.156, broadcast.158, divide.159), metadata={op_type="DivNoNan" op_name="sparse_categorical_crossentropy/weighted_loss/value"}
+  multiply.163 = f32[] multiply(constant.162, select.160), metadata={op_type="Mul" op_name="Mul"}
+  add.164 = f32[] add(arg7.8, multiply.163), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp"}
+  reshape.171 = f32[] reshape(add.164), metadata={op_name="XLA_Retvals"}
+  copy.172 = f32[] copy(reshape.171), metadata={op_name="XLA_Retvals"}
+  ROOT tuple.173 = (s32[], f32[], f32[], f32[]) tuple(reshape.167, reshape.168, copy.170, copy.172), metadata={op_name="XLA_Retvals"}
+}
+

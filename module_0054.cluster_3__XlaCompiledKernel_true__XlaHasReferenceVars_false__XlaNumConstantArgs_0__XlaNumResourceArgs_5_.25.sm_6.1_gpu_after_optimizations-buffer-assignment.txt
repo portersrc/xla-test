@@ -1,0 +1,141 @@
+BufferAssignment:
+allocation 0: 0x7f56c823eb90, size 24, output shape is |(f32[], f32[], s64[])|, maybe-live-out:
+ value: <7 tuple.24{} @0> (size=24,offset=0): (f32[], f32[], s64[])
+allocation 1: 0x7f56c823ec40, size 4, parameter 3, shape |f32[]| at ShapeIndex {}:
+ value: <3 arg3.4 @0> (size=4,offset=0): f32[]
+allocation 2: 0x7f56c823ecf0, size 8, maybe-live-out:
+ value: <6 add.13 @0> (size=8,offset=0): s64[]
+allocation 3: 0x7f56c823eda0, size 8, parameter 4, shape |s64[]| at ShapeIndex {}:
+ value: <4 arg4.5 @0> (size=8,offset=0): s64[]
+allocation 4: 0x7f56c823ee50, size 8, constant:
+ value: <5 constant_12 @0> (size=8,offset=0): s64[]
+allocation 5: 0x7f56c823ef00, size 4, maybe-live-out:
+ value: <9 fusion.2{0} @0> (size=4,offset=0): f32[1]{0}
+allocation 6: 0x7f56c823efb0, size 4, maybe-live-out:
+ value: <10 fusion.2{1} @0> (size=4,offset=0): f32[1]{0}
+allocation 7: 0x7f56c823f060, size 4, parameter 0, shape |f32[]| at ShapeIndex {}:
+ value: <0 arg0.1 @0> (size=4,offset=0): f32[]
+allocation 8: 0x7f56c823f110, size 4, parameter 1, shape |f32[]| at ShapeIndex {}:
+ value: <1 arg1.2 @0> (size=4,offset=0): f32[]
+allocation 9: 0x7f56c823f1c0, size 4, parameter 2, shape |f32[]| at ShapeIndex {}:
+ value: <2 arg2.3 @0> (size=4,offset=0): f32[]
+allocation 10: 0x7f56c823f270, size 16, preallocated-temp:
+ value: <8 fusion.2{} @0> (size=16,offset=0): (f32[1]{0}, f32[1]{0})
+
+Total bytes used: 88 (88B)
+
+Used values:
+<0 arg0.1 @0>
+ positions:
+  arg0.1
+ uses:
+  fusion.2, operand 0
+ from instruction:%arg0.1 = f32[] parameter(0), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<1 arg1.2 @0>
+ positions:
+  arg1.2
+ uses:
+  fusion.2, operand 1
+ from instruction:%arg1.2 = f32[] parameter(1), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<2 arg2.3 @0>
+ positions:
+  arg2.3
+ uses:
+  fusion.2, operand 2
+ from instruction:%arg2.3 = f32[] parameter(2), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<3 arg3.4 @0>
+ positions:
+  arg3.4
+ uses:
+  fusion.2, operand 3
+ from instruction:%arg3.4 = f32[] parameter(3), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<4 arg4.5 @0>
+ positions:
+  arg4.5
+ uses:
+  add.13, operand 0
+ from instruction:%arg4.5 = s64[] parameter(4), parameter_replication={false}, metadata={op_name="XLA_Args"}
+<5 constant_12 @0>
+ positions:
+  constant_12
+ uses:
+  add.13, operand 1
+ from instruction:%constant_12 = s64[] constant(1), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp_4"}
+<6 add.13 @0>
+ positions:
+  add.13
+  tuple.24 {2}
+ uses:
+  tuple.24, operand 2
+ from instruction:%add.13 = s64[] add(s64[] %arg4.5, s64[] %constant_12), metadata={op_type="AssignAddVariableOp" op_name="AssignAddVariableOp_4"}
+<7 tuple.24{} @0>
+ positions:
+  tuple.24 {}
+ uses:
+ from instruction:%tuple.24 = (f32[], f32[], s64[]) tuple(f32[] %bitcast, f32[] %bitcast.1, s64[] %add.13), metadata={op_name="XLA_Retvals"}
+<8 fusion.2{} @0>
+ positions:
+  fusion.2 {}
+ uses:
+  get-tuple-element, operand 0 {}
+  get-tuple-element.1, operand 0 {}
+ from instruction:%fusion.2 = (f32[1]{0}, f32[1]{0}) fusion(f32[] %arg0.1, f32[] %arg1.2, f32[] %arg2.3, f32[] %arg3.4), kind=kInput, calls=%horizontally_fused_computation
+<9 fusion.2{0} @0>
+ positions:
+  fusion.2 {0}
+  tuple.24 {0}
+  get-tuple-element
+  bitcast
+ uses:
+  bitcast, operand 0
+  tuple.24, operand 0
+ from instruction:%fusion.2 = (f32[1]{0}, f32[1]{0}) fusion(f32[] %arg0.1, f32[] %arg1.2, f32[] %arg2.3, f32[] %arg3.4), kind=kInput, calls=%horizontally_fused_computation
+<10 fusion.2{1} @0>
+ positions:
+  fusion.2 {1}
+  tuple.24 {1}
+  get-tuple-element.1
+  bitcast.1
+ uses:
+  bitcast.1, operand 0
+  tuple.24, operand 1
+ from instruction:%fusion.2 = (f32[1]{0}, f32[1]{0}) fusion(f32[] %arg0.1, f32[] %arg1.2, f32[] %arg2.3, f32[] %arg3.4), kind=kInput, calls=%horizontally_fused_computation
+
+
+HloLiveRange (max 13):
+  InstructionSequence:
+    0:constant_12
+    1:arg4.5
+    2:add.13
+    3:arg3.4
+    4:arg2.3
+    5:arg1.2
+    6:arg0.1
+    7:fusion.2
+    8:get-tuple-element.1
+    9:bitcast.1
+    10:get-tuple-element
+    11:bitcast
+    12:tuple.24
+  BufferLiveRange:
+    arg0.1{}:0-13
+    arg1.2{}:0-13
+    arg2.3{}:0-13
+    arg3.4{}:0-13
+    arg4.5{}:0-13
+    constant_12{}:0-2
+    add.13{}:2-13
+    tuple.24{}:12-13
+    fusion.2{}:7-10
+    fusion.2{0}:7-13
+    fusion.2{1}:7-13
+  Live ranges at 12 (peak):
+    arg0.1: 4 bytes
+    arg1.2: 4 bytes
+    arg2.3: 4 bytes
+    arg3.4: 4 bytes
+    arg4.5: 8 bytes
+    add.13: 8 bytes
+    tuple.24: 24 bytes
+    fusion.2: 16 bytes
+    fusion.2: 16 bytes
